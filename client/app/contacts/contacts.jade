@@ -1,0 +1,15 @@
+extends ../default
+
+block content
+
+	table#contactsTable
+		thead
+			tr
+				th Name
+				th Delete
+		tbody(ng-repeat='contact in contacts')
+			tr
+				td {{contact.name}}
+				td
+					li.btn.btn-success(type="button")
+						i.fa.fa-minus
