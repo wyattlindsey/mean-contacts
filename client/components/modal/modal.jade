@@ -1,29 +1,38 @@
 block content
 	div(ng-controller="ModalCtrl")
-		div.container.contacts-modal
+		div.contacts-modal
 			div.contacts-modal-header
 				h2 Create new contact
 				div.modal-random-button
-					button.btn.btn-large.btn-success(type='button', ng-click='addRandomPerson()') Add random person
+					button.btn.btn-large.btn-success(type='button', ng-click='generateRandomPerson()') Generate random person
 			div.contacts-modal-body
 				form(name='modalForm', novalidate, ng-submit='modalFormSubmit(modalForm)')
 					fieldset
-							div.firstNameField
+						div.modal-field
+							label
 								input(type='text', name='firstName', placeholder='First name', ng-model='formData.firstName', autofocus)
-							div
+						div.modal-field
+							label
 								input(type='text', name='lastName', placeholder='Last name', ng-model='formData.lastName')
-							div
+						div.modal-field
+							label
 								input(type='text', name='phone', placeholder='Phone', ng-model='formData.phone')
-							div
+						div.modal-field
+							label
 								input(type='text', name='email', placeholder='Email', ng-model='formData.email')
-							div
+						div.modal-field
+							label
 								input(type='text', name='skype', placeholder='Skype', ng-model='formData.skype')
-							div
+						div.modal-field
+							label
 								input(type='text', name='street', placeholder='Street address', ng-model='formData.street')
-							div
+						div.modal-field
+							label
 								input(type='text', name='cityStateZip', placeholder='City, state, zip', ng-model='formData.cityStateZip')
-							div
+						div.modal-field
+							label
 								input(type='text', name='country', placeholder='Country', ng-model='formData.country')
-
+						div.modal-primary-buttons
 							button.btn.btn-large.btn-primary(type='submit') Create
+						div.modal-primary-buttons
 							button.btn.btn-large.btn-warning(type='button', ng-click='modalCancelButton()') Cancel
