@@ -9,19 +9,33 @@ angular.module('contactsApp')
       $('#contactsTable').DataTable();
     });
 
-    $http.get('/api/contacts').success(function(contacts) {
-      $scope.contacts = contacts;
-    });
+    $scope.getContacts = function() {
+      $http.get('/api/contacts').success(function (contacts) {
+        $scope.contacts = contacts;
+      });
+    };
 
-    $scope.addContact = function() {
-      if($scope.newContact === '') {
+    // initialize table data
+    $scope.getContacts();
+
+    $scope.addContact = function(data) {
+      if(data === '') {
         return;
       }
-      $http.post('/api/contacts', { name: $scope.newContact });
-      $scope.newContact = '';
+      $http.post('/api/contacts', JSON.stringify(data)).success(function(data){
+        $scope.getContacts();
+      });
+
     };
 
-    $scope.deleteContact = function(contact) {
-      $http.delete('/api/contacts/' + contact._id);
+    $scope.deleteContact = function(id) {
+      $http.delete('/api/contacts/' + id).success(function(data) {
+        $scope.getContacts();
+      });
     };
+
+    $scope.processCreateForm = function() {
+      console.log('hi');
+    };
+
   });

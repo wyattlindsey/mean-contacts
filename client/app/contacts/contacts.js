@@ -8,7 +8,12 @@ angular.module('contactsApp')
         controller: 'ContactsCtrl'
       });
 
-    $(document).ready(function(){
-      $('#myTable').DataTable();
+    $(document).ready(function() {
+      $('#contactsTable').dataTable({
+        bFilter: false,
+        bInfo: false,
+        bPaginate: false
+      });
     });
+
   });

@@ -1,8 +1,29 @@
-.modal-header
-  button.close(ng-if='modal.dismissable', type='button', ng-click='$dismiss()') &times;
-  h4.modal-title(ng-if='modal.title', ng-bind='modal.title')
-.modal-body
-  p(ng-if='modal.text', ng-bind='modal.text')
-  div(ng-if='modal.html', ng-bind-html='modal.html')
-.modal-footer
-  button.btn(ng-repeat='button in modal.buttons', ng-class='button.classes', ng-click='button.click($event)', ng-bind='button.text')
+block content
+	div(ng-controller="ModalCtrl")
+		div.container.contacts-modal
+			div.contacts-modal-header
+				h2 Create new contact
+				div.modal-random-button
+					button.btn.btn-large.btn-success(type='button', ng-click='addRandomPerson()') Add random person
+			div.contacts-modal-body
+				form(name='modalForm', novalidate, ng-submit='modalFormSubmit(modalForm)')
+					fieldset
+							div.firstNameField
+								input(type='text', name='firstName', placeholder='First name', ng-model='formData.firstName', autofocus)
+							div
+								input(type='text', name='lastName', placeholder='Last name', ng-model='formData.lastName')
+							div
+								input(type='text', name='phone', placeholder='Phone', ng-model='formData.phone')
+							div
+								input(type='text', name='email', placeholder='Email', ng-model='formData.email')
+							div
+								input(type='text', name='skype', placeholder='Skype', ng-model='formData.skype')
+							div
+								input(type='text', name='street', placeholder='Street address', ng-model='formData.street')
+							div
+								input(type='text', name='cityStateZip', placeholder='City, state, zip', ng-model='formData.cityStateZip')
+							div
+								input(type='text', name='country', placeholder='Country', ng-model='formData.country')
+
+							button.btn.btn-large.btn-primary(type='submit') Create
+							button.btn.btn-large.btn-warning(type='button', ng-click='modalCancelButton()') Cancel
