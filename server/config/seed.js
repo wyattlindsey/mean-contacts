@@ -5,22 +5,22 @@
 
 'use strict';
 
-var Contact = require('../api/contact/contact.model');
-
-Contact.find({}).remove(function() {
-  Contact.create({
-    name : 'Wyatt Lindsey'
-  },
-  {
-    name : 'Byatt Lindsey'
-  },
-  {
-    name : 'Kyatt Lindsey'
-  },
-  {
-    name : 'Ryatt Lindsey'
-  });
-});
+//var Contact = require('../api/contact/contact.model');
+//
+//Contact.find({}).remove(function() {
+//  Contact.create({
+//    name : 'Wyatt Lindsey'
+//  },
+//  {
+//    name : 'Byatt Lindsey'
+//  },
+//  {
+//    name : 'Kyatt Lindsey'
+//  },
+//  {
+//    name : 'Ryatt Lindsey'
+//  });
+//});
 
 var Thing = require('../api/thing/thing.model');
 

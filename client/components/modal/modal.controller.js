@@ -12,7 +12,7 @@ angular.module('contactsApp')
       });
 
       modalInstance.result.then(function (data) {
-        // ok
+        //result of clicking "Create"
         $scope.addContact(data);
       }, function () {
         // cancel
@@ -32,7 +32,6 @@ angular.module('contactsApp')
 angular.module('contactsApp').controller('ModalInstanceCtrl', function($scope, $modalInstance, $http) {
 
   var formData = {};
-  var thisModalForm;
 
   $scope.modalFormSubmit = function(modalForm) {
 
@@ -43,17 +42,19 @@ angular.module('contactsApp').controller('ModalInstanceCtrl', function($scope, $
       email:          modalForm.email.$modelValue,
       skype:          modalForm.skype.$modelValue,
       street:         modalForm.street.$modelValue,
-      cityStateZip:   modalForm.cityStateZip.$modelValue,
-      country:        modalForm.country.$modelValue
+      cityStateZip:   modalForm.cityStateZip.$modelValue
     };
 
-    thisModalForm = modalForm;
 
     $modalInstance.close(formData);
   };
 
   $scope.generateRandomPerson = function() {
 
+    //clear the avatar for the next random person
+    $('.modal-avatar img').remove();
+    //clear the avatar from the temporary data model
+    formData.avatar = null;
 
     $('input[name="firstName"]').val(faker.name.firstName());
     $('input[name="lastName"]').val(faker.name.lastName());
@@ -62,24 +63,21 @@ angular.module('contactsApp').controller('ModalInstanceCtrl', function($scope, $
     $('input[name="skype"]').val(faker.internet.userName());
     $('input[name="street"]').val(faker.address.streetAddress());
     $('input[name="cityStateZip"]').val(faker.address.city() + ", " + faker.address.state()
-                                          + ", " + faker.address.zipCode);
-    $('input[name="country"]').val(faker.address.country);
+                                          + ", " + faker.address.zipCode());
+    // get image URL and append it to modal
+    var imageURL = faker.internet.avatar();
+    var avatarImageHTML = '<img src="' + imageURL + '" height="150" width="150" ' +
+        'class="img-rounded img-thumbnail">';
+    $('.modal-avatar').html(avatarImageHTML);
+    //add avatar to temporary data model
+    formData.avatar = imageURL;
 
 
     // very dirty hack that updates angular's model of the form data with what
     // was just put in the view
-
     $('.contacts-modal-body input:visible, #my-form select:visible').each(function(){
       $(this).trigger('input');
     });
-
-//        lastName:       modalForm.lastName.$modelValue,
-//        phone:          modalForm.phone.$modelValue,
-//        email:          modalForm.email.$modelValue,
-//        skype:          modalForm.skype.$modelValue,
-//        street:         modalForm.street.$modelValue,
-//        cityStateZip:   modalForm.cityStateZip.$modelValue,
-//        country:        modalForm.country.$modelValue
   };
 
   $scope.modalCancelButton = function() {

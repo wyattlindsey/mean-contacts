@@ -35,7 +35,7 @@ angular.module('contactsApp')
     };
 
     $scope.processCreateForm = function() {
-      console.log('hi');
+//      console.log('hi');
     };
 
   });

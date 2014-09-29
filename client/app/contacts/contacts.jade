@@ -2,9 +2,9 @@ extends ../default
 
 block content
 	div.container
-		div#contactsHeader.row
-			div.(ng-controller='ModalCtrl')
-				button.#newContactButton.btn.btn-large.btn-primary(type='button',
+		div.row
+			div(ng-controller='ModalCtrl')
+				button.btn.btn-large.btn-primary(type='button',
 					ng-click='open()') Create Contact
 
 	table#contactsTable.display.compact
