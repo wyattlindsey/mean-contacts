@@ -5,7 +5,8 @@ angular.module('contactsApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'ngGrid'
 ])
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider

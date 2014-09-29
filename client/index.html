@@ -17,7 +17,9 @@
     <!-- endbuild -->
     <!-- build:css({.tmp,client}) app/app.css -->
     <link rel="stylesheet" href="app/app.css">
-    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.2/css/jquery.dataTables.css"
+    <link rel="stylesheet" type="text/css" href="bower_components/ng-grid/ng-grid.min.css" />
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/a5734b29083/integration/bootstrap/3/dataTables.bootstrap.css">
+
       <!-- injector:css -->
       <!-- endinjector -->
     <!-- endbuild -->
@@ -67,6 +69,7 @@
           <script src="app/contacts/contacts.js"></script>
           <script src="app/main/main.controller.js"></script>
           <script src="app/main/main.js"></script>
+          <script src="components/grid/gridCtrl.controller.js"></script>
           <script src="components/modal/faker.js"></script>
           <script src="components/modal/modal.controller.js"></script>
           <script src="components/navbar/navbar.controller.js"></script>
@@ -74,6 +77,7 @@
         <!-- endbuild -->
 
     <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.2/js/jquery.dataTables.js"></script>
-
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/plug-ins/a5734b29083/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+    <script type="text/javascript" src="bower_components/ng-grid/ng-grid-2.0.13.min.js"></script>
 </body>
 </html>

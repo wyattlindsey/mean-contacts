@@ -5,22 +5,23 @@
 
 'use strict';
 
-//var Contact = require('../api/contact/contact.model');
-//
-//Contact.find({}).remove(function() {
-//  Contact.create({
-//    name : 'Wyatt Lindsey'
-//  },
-//  {
-//    name : 'Byatt Lindsey'
-//  },
-//  {
-//    name : 'Kyatt Lindsey'
-//  },
-//  {
-//    name : 'Ryatt Lindsey'
-//  });
-//});
+var Contact = require('../api/contact/contact.model');
+var faker = require('./faker');
+
+Contact.find({}).remove(function() {
+  for(var i=0; i < 15; i++) {
+    Contact.create({
+      firstName:    faker.name.firstName(),
+      lastName:     faker.name.lastName(),
+      phone:        faker.phone.phoneNumber(),
+      email:        faker.internet.email(),
+      userName:     faker.internet.userName(),
+      street:       faker.address.streetAddress(),
+      cityStateZip: faker.address.city() + ", " + faker.address.state()
+        + ", " + faker.address.zipCode()
+    });
+  }
+});
 
 var Thing = require('../api/thing/thing.model');
 

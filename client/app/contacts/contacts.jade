@@ -1,29 +1,32 @@
 extends ../default
 
 block content
-	div.container
-		div.row
-			div(ng-controller='ModalCtrl')
+	div.container-fluid
+		div.row-fluid
+			div.create-contact(ng-controller='ModalCtrl')
 				button.btn.btn-large.btn-primary(type='button',
 					ng-click='open()') Create Contact
+	div.contacts-grid.gridStyle(ng-grid="gridOptions")
+		table.table.table-striped.table-bordered.table-hover.table-condensed
+			thead
+				tr
+					th First
+					th Last
+					th Phone
+					th Email
+					th
+			tbody(ng-repeat='contact in contacts')
+				tr
+					td {{contact.firstName}}
+					td {{contact.lastName}}
+					td {{contact.phone}}
+					td {{contact.email}}
+					td
+						li.btn.btn-success(type='button', ng-click='deleteContact(contact._id)')
+							i.fa.fa-minus
 
-	table#contactsTable.display.compact
-		thead
-			tr
-				th First
-				th Last
-				th Phone
-				th Email
-				th
-		tbody(ng-repeat='contact in contacts')
-			tr
-				td {{contact.firstName}}
-				td {{contact.lastName}}
-				td {{contact.phone}}
-				td {{contact.email}}
-				td
-					li.btn.btn-success(type='button', ng-click='deleteContact(contact._id)')
-						i.fa.fa-minus
+		div#contactPane
+			p Hi There!
 
 block js
 	script(src='./faker.js')

@@ -67,7 +67,7 @@ angular.module('contactsApp').controller('ModalInstanceCtrl', function($scope, $
     // get image URL and append it to modal
     var imageURL = faker.internet.avatar();
     var avatarImageHTML = '<img src="' + imageURL + '" height="150" width="150" ' +
-        'class="img-rounded img-thumbnail">';
+        'class="img-rounded">';
     $('.modal-avatar').html(avatarImageHTML);
     //add avatar to temporary data model
     formData.avatar = imageURL;

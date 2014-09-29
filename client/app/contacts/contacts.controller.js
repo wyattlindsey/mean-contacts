@@ -5,9 +5,8 @@ angular.module('contactsApp')
 
     $scope.contacts = [];
 
-    $(document).ready(function(){
-      $('#contactsTable').DataTable();
-    });
+    $scope.gridOptions = { data: 'contacts' };
+
 
     $scope.getContacts = function() {
       $http.get('/api/contacts').success(function (contacts) {
@@ -17,6 +16,12 @@ angular.module('contactsApp')
 
     // initialize table data
     $scope.getContacts();
+
+//    $(document).ready(function(){
+//      $('#contactsTable').DataTable({
+//        "bInfo": false
+//      });
+//    });
 
     $scope.addContact = function(data) {
       if(data === '') {
