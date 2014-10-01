@@ -9,7 +9,7 @@ var Contact = require('../api/contact/contact.model');
 var faker = require('./faker');
 
 Contact.find({}).remove(function() {
-  for(var i=0; i < 15; i++) {
+  for(var i=0; i < 5; i++) {
     Contact.create({
       firstName:    faker.name.firstName(),
       lastName:     faker.name.lastName(),
@@ -18,7 +18,8 @@ Contact.find({}).remove(function() {
       userName:     faker.internet.userName(),
       street:       faker.address.streetAddress(),
       cityStateZip: faker.address.city() + ", " + faker.address.state()
-        + ", " + faker.address.zipCode()
+        + ", " + faker.address.zipCode(),
+      avatar:       faker.internet.avatar()
     });
   }
 });

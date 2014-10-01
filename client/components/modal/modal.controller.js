@@ -13,6 +13,7 @@ angular.module('contactsApp')
 
       modalInstance.result.then(function (data) {
         //result of clicking "Create"
+        console.log(data);
         $scope.addContact(data);
       }, function () {
         // cancel
@@ -31,22 +32,22 @@ angular.module('contactsApp')
 
 angular.module('contactsApp').controller('ModalInstanceCtrl', function($scope, $modalInstance, $http) {
 
-  var formData = {};
+  $scope.formData = {};
 
   $scope.modalFormSubmit = function(modalForm) {
 
-    formData = {
+    $scope.formData = {
       firstName:      modalForm.firstName.$modelValue,
       lastName:       modalForm.lastName.$modelValue,
       phone:          modalForm.phone.$modelValue,
       email:          modalForm.email.$modelValue,
       skype:          modalForm.skype.$modelValue,
       street:         modalForm.street.$modelValue,
-      cityStateZip:   modalForm.cityStateZip.$modelValue
+      cityStateZip:   modalForm.cityStateZip.$modelValue,
+      avatar:         $scope.formData.avatar
     };
 
-
-    $modalInstance.close(formData);
+    $modalInstance.close($scope.formData);
   };
 
   $scope.generateRandomPerson = function() {
@@ -54,7 +55,7 @@ angular.module('contactsApp').controller('ModalInstanceCtrl', function($scope, $
     //clear the avatar for the next random person
     $('.modal-avatar img').remove();
     //clear the avatar from the temporary data model
-    formData.avatar = null;
+    $scope.formData.avatar = null;
 
     $('input[name="firstName"]').val(faker.name.firstName());
     $('input[name="lastName"]').val(faker.name.lastName());
@@ -70,7 +71,7 @@ angular.module('contactsApp').controller('ModalInstanceCtrl', function($scope, $
         'class="img-rounded">';
     $('.modal-avatar').html(avatarImageHTML);
     //add avatar to temporary data model
-    formData.avatar = imageURL;
+    $scope.formData.avatar = imageURL;
 
 
     // very dirty hack that updates angular's model of the form data with what

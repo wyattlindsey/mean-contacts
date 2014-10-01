@@ -4,8 +4,30 @@ angular.module('contactsApp')
   .controller('ContactsCtrl', function ($scope, $http) {
 
     $scope.contacts = [];
+    $scope.selectedItems = [];
+    $scope.filterOptions = {
+      filterText: ''
+    };
 
-    $scope.gridOptions = { data: 'contacts' };
+    $scope.gridOptions = {
+      data: 'contacts',
+      selectedItems: $scope.selectedItems,
+      multiSelect: 'false',
+      afterSelectionChange: function(rowItem, event) {
+        var imageURL = $scope.contacts[rowItem.rowIndex].avatar;
+        var avatarImageHTML = '<img src="' + imageURL + '" height="150" width="150" ' +
+            'class="img-rounded">';
+        console.log(avatarImageHTML);
+        $('.contact-pane-avatar').html(avatarImageHTML);
+      },
+      columnDefs: [
+        {field: 'firstName', displayName: 'First name', enableCellEdit: true},
+        {field: 'lastName', displayName: 'Last name', enableCellEdit: true},
+        {field: 'phone', displayName: 'Phone', enableCellEdit: true},
+        {field: 'email', displayName: 'Email', enableCellEdit: true}
+      ],
+      filterOptions: $scope.filterOptions
+    };
 
 
     $scope.getContacts = function() {
