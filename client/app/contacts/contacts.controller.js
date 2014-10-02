@@ -12,13 +12,22 @@ angular.module('contactsApp')
     $scope.gridOptions = {
       data: 'contacts',
       selectedItems: $scope.selectedItems,
-      multiSelect: 'false',
       afterSelectionChange: function(rowItem, event) {
-        var imageURL = $scope.contacts[rowItem.rowIndex].avatar;
-        var avatarImageHTML = '<img src="' + imageURL + '" height="150" width="150" ' +
-            'class="img-rounded">';
-        console.log(avatarImageHTML);
-        $('.contact-pane-avatar').html(avatarImageHTML);
+        // if there are any selected items
+        if ($scope.selectedItems.length) {
+          var imageURL = $scope.contacts[rowItem.rowIndex].avatar;
+          var avatarImageHTML = '<img src="' + imageURL + '" height="250" width="250" ' +
+              'class="img-rounded">';
+          console.log($scope.selectedItems);
+          $('.contact-pane-avatar').html(avatarImageHTML);
+        } else {
+          imageURL = 'http://upload.wikimedia.org/wikipedia/en/b/b1/Portrait_placeholder.png';
+          avatarImageHTML = '<img src="' + imageURL + '" height="250" width="250" ' +
+              'class="img-rounded">';
+          console.log($scope.selectedItems);
+          $('.contact-pane-avatar').html(avatarImageHTML);
+        }
+
       },
       columnDefs: [
         {field: 'firstName', displayName: 'First name', enableCellEdit: true},
@@ -26,8 +35,11 @@ angular.module('contactsApp')
         {field: 'phone', displayName: 'Phone', enableCellEdit: true},
         {field: 'email', displayName: 'Email', enableCellEdit: true}
       ],
+      multiSelect: 'false',
       filterOptions: $scope.filterOptions
     };
+
+    console.log($scope.gridOptions);
 
 
     $scope.getContacts = function() {

@@ -3,34 +3,34 @@ extends ../default
 block content
 	div.container-fluid
 		div.row-fluid.main-app
-			div.col-md-7
-				div.row-fluid.contacts-toolbar
-					div.col-md-4
-						div.create-contact(ng-controller='ModalCtrl')
-							button.btn.btn-large.btn-primary(type='button',
-								ng-click='open()')
-								i.fa.fa-plus &nbsp;Add New Contact
-					div.col-md-4
-						div.delete-selected.btn.btn-large.btn-warning(type='button',
-								ng-click='deleteSelected()')
-								i.fa.fa-trash &nbsp;Delete Selected
-					div.col-md-4
-						form.search-field
-							input.form-control(type='text', placeholder='Search',
-												ng-model='filterOptions.filterText')
+			div.col-md-7.contacts-toolbar
+				div.centered
+					div.row-fluid.contacts-toolbar-controls
+						div.col-md-4
+							div.create-contact(ng-controller='ModalCtrl')
+								button.btn.btn-large.btn-primary(type='button',
+									ng-click='open()')
+									i.fa.fa-plus &nbsp;Add New Contact
+						div.col-md-4
+							div.delete-selected.btn.btn-large.btn-warning(type='button',
+									ng-click='deleteSelected()')
+									i.fa.fa-trash &nbsp;Delete Selected
+						div.col-md-4
+							form.search-field
+								input.form-control(type='text', placeholder='Search',
+													ng-model='filterOptions.filterText')
 
-				div.contacts-grid.gridStyle(ng-grid="gridOptions")
+					div.contacts-grid.gridStyle(ng-grid="gridOptions")
 
 			div.col-md-5
-				div#contact-pane
-					div.row-fluid
-						div.well
-							div.col-md-6
-								div.contact-title
-									h2 {{selectedItems[0].firstName}} {{selectedItems[0].lastName}}
-							div.col-md-6
-								div.contact-pane-avatar
-									img(src="http://upload.wikimedia.org/wikipedia/en/b/b1/Portrait_placeholder.png" height="150" width="150")
+				div#contact-pane.well
+					div.container-fluid
+						div.col-md-6
+							div.contact-title
+								h2 {{selectedItems[0].firstName}} {{selectedItems[0].lastName}}
+						div.col-md-6
+							div.contact-pane-avatar
+								img(src="http://upload.wikimedia.org/wikipedia/en/b/b1/Portrait_placeholder.png" height="250" width="250")
 
 
 

@@ -1,18 +1,27 @@
 .main-app {
 
   .contacts-toolbar {
-    display: inline-block;
 
-    .create-contact {
-      padding-bottom: 15px;
+    .centered {
+      text-align: center;
+
+      .contacts-toolbar-controls {
+        display: inline-block;
+
+          .create-contact {
+            padding-bottom: 15px;
+          }
+
+          .search-field {
+            padding-bottom: 15px;
+
+            input {
+            }
+          }
+        }
+
     }
 
-    .search-field {
-      padding-bottom: 15px;
-
-      input {
-      }
-    }
   }
 
   .gridStyle {
