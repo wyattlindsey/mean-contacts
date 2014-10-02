@@ -4,39 +4,42 @@ angular.module('contactsApp')
   .controller('ContactsCtrl', function ($scope, $http) {
 
     $scope.contacts = [];
-    $scope.selectedItems = [];
-    $scope.filterOptions = {
-      filterText: ''
-    };
 
     $scope.gridOptions = {
       data: 'contacts',
-      selectedItems: $scope.selectedItems,
-      afterSelectionChange: function(rowItem, event) {
-        // if there are any selected items
-        if ($scope.selectedItems.length) {
-          var imageURL = $scope.contacts[rowItem.rowIndex].avatar;
-          var avatarImageHTML = '<img src="' + imageURL + '" height="250" width="250" ' +
-              'class="img-rounded">';
-          console.log($scope.selectedItems);
-          $('.contact-pane-avatar').html(avatarImageHTML);
-        } else {
-          imageURL = 'http://upload.wikimedia.org/wikipedia/en/b/b1/Portrait_placeholder.png';
-          avatarImageHTML = '<img src="' + imageURL + '" height="250" width="250" ' +
-              'class="img-rounded">';
-          console.log($scope.selectedItems);
-          $('.contact-pane-avatar').html(avatarImageHTML);
-        }
-
-      },
+//      enableFiltering: true
+      enableRowSelection: true,
+      multiSelect: false,
+      enableRowHeaderSelection: false,
+////      selectedItems: $scope.selectedItems,
+////      afterSelectionChange: function(rowItem, event) {
+////        // if there are any selected items
+////        if ($scope.selectedItems.length) {
+////          var imageURL = $scope.contacts[rowItem.rowIndex].avatar;
+////          var avatarImageHTML = '<img src="' + imageURL + '" height="250" width="250" ' +
+////              'class="img-rounded">';
+////          console.log($scope.selectedItems);
+////          $('.contact-pane-avatar').html(avatarImageHTML);
+////        } else {
+////          imageURL = 'http://upload.wikimedia.org/wikipedia/en/b/b1/Portrait_placeholder.png';
+////          avatarImageHTML = '<img src="' + imageURL + '" height="250" width="250" ' +
+////              'class="img-rounded">';
+////          console.log($scope.selectedItems);
+////          $('.contact-pane-avatar').html(avatarImageHTML);
+////        }
+////
+////      },
       columnDefs: [
-        {field: 'firstName', displayName: 'First name', enableCellEdit: true},
-        {field: 'lastName', displayName: 'Last name', enableCellEdit: true},
-        {field: 'phone', displayName: 'Phone', enableCellEdit: true},
-        {field: 'email', displayName: 'Email', enableCellEdit: true}
-      ],
-      multiSelect: 'false',
-      filterOptions: $scope.filterOptions
+        {field: 'firstName', displayName: 'First name'},
+        {field: 'lastName', displayName: 'Last name',
+          sort: {
+            direction: 'asc',
+            priority: 1
+          }
+        },
+        {field: 'phone', displayName: 'Phone'},
+        {field: 'email', displayName: 'Email'}
+      ]
     };
 
     console.log($scope.gridOptions);

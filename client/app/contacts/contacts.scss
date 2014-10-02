@@ -11,13 +11,6 @@
           .create-contact {
             padding-bottom: 15px;
           }
-
-          .search-field {
-            padding-bottom: 15px;
-
-            input {
-            }
-          }
         }
 
     }
@@ -27,11 +20,13 @@
   .gridStyle {
     border: 1px solid rgb(212,212,212);
     height: 600px;
+    width: auto;
   }
 
   #contact-pane {
     margin-top: 55px;
   }
+
 }
 
 

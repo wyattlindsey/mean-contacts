@@ -6,21 +6,16 @@ block content
 			div.col-md-7.contacts-toolbar
 				div.centered
 					div.row-fluid.contacts-toolbar-controls
-						div.col-md-4
+						div.col-md-6
 							div.create-contact(ng-controller='ModalCtrl')
 								button.btn.btn-large.btn-primary(type='button',
 									ng-click='open()')
 									i.fa.fa-plus &nbsp;Add New Contact
-						div.col-md-4
+						div.col-md-6
 							div.delete-selected.btn.btn-large.btn-warning(type='button',
 									ng-click='deleteSelected()')
 									i.fa.fa-trash &nbsp;Delete Selected
-						div.col-md-4
-							form.search-field
-								input.form-control(type='text', placeholder='Search',
-													ng-model='filterOptions.filterText')
-
-					div.contacts-grid.gridStyle(ng-grid="gridOptions")
+				div.contacts-grid.gridStyle(ui-grid="gridOptions", ui-grid-selection)
 
 			div.col-md-5
 				div#contact-pane.well
