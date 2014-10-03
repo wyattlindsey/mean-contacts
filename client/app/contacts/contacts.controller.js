@@ -41,8 +41,7 @@ angular.module('contactsApp')
         {field: 'firstName', displayName: 'First name',
           filter: {
             condition: function(searchTerm, cellValue) {
-              var wildcardValue = cellValue.toLowerCase().replace(/[.]/g, '*');
-              return wildcardValue.indexOf(searchTerm.toLowerCase()) >= 0;
+              return cellValue.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0;
             }
           }
         },
@@ -53,8 +52,7 @@ angular.module('contactsApp')
           },
           filter: {
             condition: function(searchTerm, cellValue) {
-              var wildcardValue = cellValue.toLowerCase().replace(/[.]/g, '*');
-              return wildcardValue.indexOf(searchTerm.toLowerCase()) >= 0;
+              return cellValue.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0;
             }
           }
         },
@@ -69,9 +67,7 @@ angular.module('contactsApp')
         {field: 'email', displayName: 'Email',
           filter: {
             condition: function(searchTerm, cellValue) {
-              //The dot character invalidates this search. Not sure what's really happening for these regexes
-              var wildcardValue = cellValue.toLowerCase().replace(/[.*]/g, '*');
-              return wildcardValue.indexOf(searchTerm.toLowerCase()) >= 0;
+              return cellValue.toLowerCase().search(searchTerm.toLowerCase()) >= 0;
             }
           }
         }
