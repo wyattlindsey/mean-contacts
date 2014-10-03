@@ -4,13 +4,21 @@ angular.module('contactsApp')
   .controller('ContactsCtrl', function ($scope, $http) {
 
     $scope.contacts = [];
+    $scope.selectedItems = [];
 
     $scope.gridOptions = {
       data: 'contacts',
-//      enableFiltering: true
+      enableFiltering: true,
       enableRowSelection: true,
       multiSelect: false,
       enableRowHeaderSelection: false,
+      onRegisterApi: function(gridApi) {
+        $scope.gridApi = gridApi;
+        gridApi.selection.on.rowSelectionChanged($scope,function(row){
+          var msg = 'row selected ' + row.index;
+          console.log(msg);
+        });
+      },
 ////      selectedItems: $scope.selectedItems,
 ////      afterSelectionChange: function(rowItem, event) {
 ////        // if there are any selected items
@@ -30,15 +38,43 @@ angular.module('contactsApp')
 ////
 ////      },
       columnDefs: [
-        {field: 'firstName', displayName: 'First name'},
+        {field: 'firstName', displayName: 'First name',
+          filter: {
+            condition: function(searchTerm, cellValue) {
+              var wildcardValue = cellValue.toLowerCase().replace(/[.]/g, '*');
+              return wildcardValue.indexOf(searchTerm.toLowerCase()) >= 0;
+            }
+          }
+        },
         {field: 'lastName', displayName: 'Last name',
           sort: {
             direction: 'asc',
             priority: 1
+          },
+          filter: {
+            condition: function(searchTerm, cellValue) {
+              var wildcardValue = cellValue.toLowerCase().replace(/[.]/g, '*');
+              return wildcardValue.indexOf(searchTerm.toLowerCase()) >= 0;
+            }
           }
         },
-        {field: 'phone', displayName: 'Phone'},
-        {field: 'email', displayName: 'Email'}
+        {field: 'phone', displayName: 'Phone',
+          filter: {
+            condition: function(searchTerm, cellValue) {
+              var strippedValue = (cellValue + '').toLowerCase().replace(/[^\d]/g, '');
+              return strippedValue.indexOf(searchTerm.toLowerCase()) >= 0;
+            }
+          }
+        },
+        {field: 'email', displayName: 'Email',
+          filter: {
+            condition: function(searchTerm, cellValue) {
+              //The dot character invalidates this search. Not sure what's really happening for these regexes
+              var wildcardValue = cellValue.toLowerCase().replace(/[.*]/g, '*');
+              return wildcardValue.indexOf(searchTerm.toLowerCase()) >= 0;
+            }
+          }
+        }
       ]
     };
 
@@ -54,12 +90,6 @@ angular.module('contactsApp')
     // initialize table data
     $scope.getContacts();
 
-//    $(document).ready(function(){
-//      $('#contactsTable').DataTable({
-//        "bInfo": false
-//      });
-//    });
-
     $scope.addContact = function(data) {
       if(data === '') {
         return;
@@ -74,10 +104,6 @@ angular.module('contactsApp')
       $http.delete('/api/contacts/' + id).success(function(data) {
         $scope.getContacts();
       });
-    };
-
-    $scope.processCreateForm = function() {
-//      console.log('hi');
     };
 
   });
