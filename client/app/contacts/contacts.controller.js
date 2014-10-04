@@ -5,6 +5,7 @@ angular.module('contactsApp')
 
     $scope.contacts = [];
     $scope.selectedItems = [];
+    var singleRowSelected = false;
 
     $scope.gridOptions = {
       data: 'contacts',
@@ -15,28 +16,52 @@ angular.module('contactsApp')
       onRegisterApi: function(gridApi) {
         $scope.gridApi = gridApi;
         gridApi.selection.on.rowSelectionChanged($scope,function(row){
-          var msg = 'row selected ' + row.index;
-          console.log(msg);
+
+
+
+          //clear selectedItems array if needed
+          if (!$scope.gridOptions.multiSelect) {
+
+            $scope.selectedItems = [];
+
+          }
+          $scope.selectedItems.push(row);
+          // logic for multi-select when shift/ctr/meta key are pressed down
+
+
+          // handle case where row is deselected
+          if ($scope.selectedItems[0].entity._id === row.entity._id && singleRowSelected) {
+
+            $scope.selectedItems = [];
+            singleRowSelected = false;
+            //clear out data and pull in defaults
+            imageURL = 'http://upload.wikimedia.org/wikipedia/en/b/b1/Portrait_placeholder.png';
+            avatarImageHTML = '<img src="' + imageURL + '" height="250" width="250" ' +
+                'class="img-rounded">';
+            $('.contact-pane-avatar').html(avatarImageHTML);
+          }
+
+          // logic for updating data in contact details
+
+          if ($scope.selectedItems.length === 1) {
+
+            singleRowSelected = true;
+
+              // pull data into contact details
+            var imageURL = row.entity.avatar;
+            var avatarImageHTML = '<img src="' + imageURL + '" height="250" width="250" ' +
+              'class="img-rounded">';
+            $('.contact-pane-avatar').html(avatarImageHTML);
+          } else {
+            //clear out data and pull in defaults
+            imageURL = 'http://upload.wikimedia.org/wikipedia/en/b/b1/Portrait_placeholder.png';
+            avatarImageHTML = '<img src="' + imageURL + '" height="250" width="250" ' +
+                'class="img-rounded">';
+            $('.contact-pane-avatar').html(avatarImageHTML);
+          }
         });
       },
-////      selectedItems: $scope.selectedItems,
-////      afterSelectionChange: function(rowItem, event) {
-////        // if there are any selected items
-////        if ($scope.selectedItems.length) {
-////          var imageURL = $scope.contacts[rowItem.rowIndex].avatar;
-////          var avatarImageHTML = '<img src="' + imageURL + '" height="250" width="250" ' +
-////              'class="img-rounded">';
-////          console.log($scope.selectedItems);
-////          $('.contact-pane-avatar').html(avatarImageHTML);
-////        } else {
-////          imageURL = 'http://upload.wikimedia.org/wikipedia/en/b/b1/Portrait_placeholder.png';
-////          avatarImageHTML = '<img src="' + imageURL + '" height="250" width="250" ' +
-////              'class="img-rounded">';
-////          console.log($scope.selectedItems);
-////          $('.contact-pane-avatar').html(avatarImageHTML);
-////        }
-////
-////      },
+
       columnDefs: [
         {field: 'firstName', displayName: 'First name',
           filter: {
@@ -74,7 +99,7 @@ angular.module('contactsApp')
       ]
     };
 
-    console.log($scope.gridOptions);
+
 
 
     $scope.getContacts = function() {
