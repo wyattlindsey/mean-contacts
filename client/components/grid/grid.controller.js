@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('contactsApp')
-  .controller('gridCtrl', function ($scope) {
+  .controller('GridCtrl', function ($scope, detailsViewService) {
 
       $scope.selectedItems = [];
 
@@ -25,37 +25,34 @@ angular.module('contactsApp')
               $scope.selectedItems = [];
 
             }
+            // then add selected item
             $scope.selectedItems.push(row);
+
             // logic for multi-select when shift/ctr/meta key are pressed down
 
 
             // handle case where row is deselected
             if ($scope.selectedItems[0].entity._id === row.entity._id && !row.isSelected) {
 
-              $scope.selectedItems = [];
               //clear out data and pull in defaults
-              imageURL = 'http://upload.wikimedia.org/wikipedia/en/b/b1/Portrait_placeholder.png';
-              avatarImageHTML = '<img src="' + imageURL + '" height="250" width="250" ' +
-                  'class="img-rounded">';
-              $('.contact-pane-avatar').html(avatarImageHTML);
+              $scope.selectedItems = [];
+
+              detailsViewService.clearDetailsView();
+
+
             }
 
             // logic for updating data in contact details
 
             if ($scope.selectedItems.length === 1) {
 
-
               // pull data into contact details
-              var imageURL = row.entity.avatar;
-              var avatarImageHTML = '<img src="' + imageURL + '" height="250" width="250" ' +
-                  'class="img-rounded">';
-              $('.contact-pane-avatar').html(avatarImageHTML);
+              detailsViewService.setAvatarImage(row.entity.avatar);
+
             } else {
+
               //clear out data and pull in defaults
-              imageURL = 'http://upload.wikimedia.org/wikipedia/en/b/b1/Portrait_placeholder.png';
-              avatarImageHTML = '<img src="' + imageURL + '" height="250" width="250" ' +
-                  'class="img-rounded">';
-              $('.contact-pane-avatar').html(avatarImageHTML);
+              detailsViewService.clearDetailsView();
             }
           });
         };
@@ -95,5 +92,5 @@ angular.module('contactsApp')
             }
           }
         ];
-      
+
   });
