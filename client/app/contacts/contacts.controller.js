@@ -15,14 +15,24 @@ angular.module('contactsApp')
     $scope.getContacts();
 
     $scope.addContact = function(data) {
-      if(data === '') {
+      if (data === '') {
         return;
       }
-      $http.post('/api/contacts', JSON.stringify(data)).success(function(data){
+      $http.post('/api/contacts', JSON.stringify(data)).success(function(data) {
         $scope.getContacts();
         return data;
       });
 
+    };
+
+    $scope.updateContact = function(id, data) {
+      if (data === '' || id === '') {
+        return;
+      }
+      $http.put('/api/contacts/' + id, JSON.stringify(data)).success(function(data) {
+        $scope.getContacts();
+        return data;
+      })
     };
 
     $scope.deleteContact = function(id) {

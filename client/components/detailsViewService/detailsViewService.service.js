@@ -10,7 +10,8 @@ angular.module('contactsApp')
       var avatarImageHTML = '<img src="' + imageURL + '" height="250" width="250" ' +
           'class="img-rounded">';
       $('.contact-pane-avatar').html(avatarImageHTML);
-      $('.contact-name').html('');
+      $('.contact-first-name').html('');
+      $('.contact-last-name').html('');
       $('.contact-phone').html('');
       $('.contact-email').html('');
       $('.contact-skype').html('');
@@ -26,8 +27,18 @@ angular.module('contactsApp')
             'class="img-rounded">';
         $('.contact-pane-avatar').html(avatarImageHTML);
       }
-      var nameHTML = contactData.firstName + ' ' + contactData.lastName;
-      $('.contact-name').html(nameHTML);
+      if (contactData.firstName) {
+        var firstNameHTML = contactData.firstName;
+      } else {
+        firstNameHTML = '';
+      }
+      if (contactData.lastName) {
+        var lastNameHTML = contactData.lastName;
+      } else {
+        lastNameHTML = '';
+      }
+      $('.contact-first-name').html(contactData.firstName);
+      $('.contact-last-name').html(contactData.lastName);
       $('.contact-phone').html(contactData.phone);
       $('.contact-email').html(contactData.email);
       $('.contact-skype').html(contactData.skype);
@@ -39,8 +50,5 @@ angular.module('contactsApp')
         $('.contact-zip').html(contactData.zip);
       }
     };
-
-
-
 
   });

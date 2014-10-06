@@ -16,21 +16,23 @@ block content
 									ng-click='deleteSelected()')
 									i.fa.fa-trash &nbsp;Delete Selected
 				div.contacts-grid
-					div.gridStyle(ui-grid='gridOptions', ui-grid-selection)
+					div.gridStyle(ui-grid='gridOptions', ui-grid-selection, ui-grid-edit)
 
 			div.col-md-5
 				div#contact-details-pane.well
 					div.container-fluid
 						div.col-md-6
-							div.h2.contact-name
-							div.h5.contact-phone(tooltip='Phone', tooltip-placement='left')
-							div.h5.contact-email(tooltip='Email', tooltip-placement='left')
-							div.h5.contact-skype(tooltip='Skype', tooltip-placement='left')
+							div.contact-name
+								div.h2.contact-first-name(tooltip='First name', tooltip-placement='right')
+								div.h2.contact-last-name(tooltip='Last name', tooltip-placement='right')
+							div.h5.contact-phone(tooltip='Phone', tooltip-placement='right')
+							div.h5.contact-email(tooltip='Email', tooltip-placement='right')
+							div.h5.contact-skype(tooltip='Skype', tooltip-placement='right')
 							div.contact-address
-								div.h5.contact-street-address(tooltip='Street Address', tooltip-placement='left')
-								div.h5.contact-secondary-address(tooltip='Secondary Address', tooltip-placement='left')
-								div.h5.contact-city-state(tooltip='City, State', tooltip-placement='left')
-								div.h5.contact-zip(tooltip='Zip', tooltip-placement='left')
+								div.h5.contact-street-address(tooltip='Street Address', tooltip-placement='right')
+								div.h5.contact-secondary-address(tooltip='Secondary Address', tooltip-placement='right')
+								div.h5.contact-city-state(tooltip='City, State', tooltip-placement='right')
+								div.h5.contact-zip(tooltip='Zip', tooltip-placement='right')
 						div.col-md-6
 							div.contact-pane-avatar
 								img(src="http://upload.wikimedia.org/wikipedia/en/b/b1/Portrait_placeholder.png" height="250" width="250")

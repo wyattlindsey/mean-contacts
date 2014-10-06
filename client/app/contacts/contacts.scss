@@ -27,7 +27,19 @@
     margin-top: 55px;
 
     .contact-name {
-      margin-bottom: 20px;
+      margin-top: 20px;
+      margin-bottom: 25px;
+      text-align: center;
+
+      .contact-first-name {
+        margin-bottom: 10px;
+        margin-top: 0px;
+      }
+
+      .contact-last-name {
+        margin-bottom: 0px;
+        margin-top: 0px;
+      }
     }
 
     .contact-address {

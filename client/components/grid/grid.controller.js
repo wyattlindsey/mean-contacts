@@ -25,7 +25,7 @@ angular.module('contactsApp')
             if ($scope.selectedItems === row.entity && !row.isSelected) {
               //clear out data and pull in defaults
               $scope.selectedItems = [];
-//              detailsViewService.clearDetailsView();
+              detailsViewService.clearDetailsView();
             }
 
             // logic for updating data in contact details
@@ -37,17 +37,25 @@ angular.module('contactsApp')
               detailsViewService.clearDetailsView();
             }
           });
+
+          gridApi.edit.on.afterCellEdit($scope,function(rowEntity, colDef, newValue, oldValue) {
+
+            $scope.$apply();
+            $scope.updateContact(rowEntity._id, rowEntity);
+            gridApi.selection.selectRow(rowEntity);
+            detailsViewService.setDetailsView(rowEntity);
+          })
         };
 
         $scope.gridOptions.columnDefs = [
-          {field: 'firstName', displayName: 'First name',
+          {field: 'firstName', displayName: 'First name', enableCellEdit: true,
             filter: {
               condition: function(searchTerm, cellValue) {
                 return cellValue.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0;
               }
             }
           },
-          {field: 'lastName', displayName: 'Last name',
+          {field: 'lastName', displayName: 'Last name', enableCellEdit: true,
             sort: {
               direction: 'asc',
               priority: 1
@@ -58,7 +66,7 @@ angular.module('contactsApp')
               }
             }
           },
-          {field: 'phone', displayName: 'Phone',
+          {field: 'phone', displayName: 'Phone', enableCellEdit: true,
             filter: {
               condition: function(searchTerm, cellValue) {
                 var strippedValue = (cellValue + '').toLowerCase().replace(/[^\d]/g, '');
@@ -66,7 +74,7 @@ angular.module('contactsApp')
               }
             }
           },
-          {field: 'email', displayName: 'Email',
+          {field: 'email', displayName: 'Email', enableCellEdit: true,
             filter: {
               condition: function(searchTerm, cellValue) {
                 return cellValue.toLowerCase().search(searchTerm.toLowerCase()) >= 0;
