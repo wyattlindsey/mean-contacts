@@ -2,7 +2,7 @@ extends ../default
 
 block content
 	div.container-fluid
-		div.row-fluid.main-app
+		div.row-fluid.main-app(ng-controller='GridCtrl')
 			div.col-md-7.contacts-toolbar
 				div.centered
 					div.row-fluid.contacts-toolbar-controls
@@ -15,7 +15,7 @@ block content
 							div.delete-selected.btn.btn-large.btn-warning(type='button',
 									ng-click='deleteSelected()')
 									i.fa.fa-trash &nbsp;Delete Selected
-				div.contacts-grid(ng-controller='GridCtrl')
+				div.contacts-grid
 					div.gridStyle(ui-grid='gridOptions', ui-grid-selection)
 
 			div.col-md-5

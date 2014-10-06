@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('contactsApp')
-  .controller('ModalCtrl', function($scope, $modal) {
+  .controller('ModalCtrl', function($scope, $modal, detailsViewService) {
 
     $scope.open = function() {
 
@@ -13,7 +13,6 @@ angular.module('contactsApp')
 
       modalInstance.result.then(function (data) {
         //result of clicking "Create"
-        console.log(data);
         $scope.addContact(data);
       }, function () {
         // cancel

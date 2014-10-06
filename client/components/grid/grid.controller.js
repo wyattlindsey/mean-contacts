@@ -15,42 +15,24 @@ angular.module('contactsApp')
 
       $scope.gridOptions.onRegisterApi = function(gridApi) {
           $scope.gridApi = gridApi;
-          gridApi.selection.on.rowSelectionChanged($scope,function(row){
+          gridApi.selection.on.rowSelectionChanged($scope, function(row){
 
+            $scope.selectedItems = gridApi.selection.getSelectedRows();
 
-
-            //clear selectedItems array if needed
-            if (!$scope.gridOptions.multiSelect) {
-
-              $scope.selectedItems = [];
-
-            }
-            // then add selected item
-            $scope.selectedItems.push(row);
-
-            // logic for multi-select when shift/ctr/meta key are pressed down
-
+            // TO-DO logic for multi-select when shift/ctr/meta key are pressed down
 
             // handle case where row is deselected
-            if ($scope.selectedItems[0].entity._id === row.entity._id && !row.isSelected) {
-
+            if ($scope.selectedItems === row.entity && !row.isSelected) {
               //clear out data and pull in defaults
               $scope.selectedItems = [];
-
-              detailsViewService.clearDetailsView();
-
-
+//              detailsViewService.clearDetailsView();
             }
 
             // logic for updating data in contact details
-
             if ($scope.selectedItems.length === 1) {
-
               // pull data into contact details
-              detailsViewService.setAvatarImage(row.entity.avatar);
-
+              detailsViewService.setDetailsView(row.entity);
             } else {
-
               //clear out data and pull in defaults
               detailsViewService.clearDetailsView();
             }
@@ -92,5 +74,23 @@ angular.module('contactsApp')
             }
           }
         ];
+
+      $scope.selectSingleRow = function() {
+
+
+      };
+
+      //keydown to enable multi-select
+      $('body').keydown(function (e) {
+        if ((e.keyCode === 16 || e.keyCode === 17 || e.metaKey || e.keyCode === 224 || e.keyCode === 91 || e.keyCode === 93) && !$scope.multiSelect) {
+          $scope.gridApi.selection.setMultiSelect(true);
+        }
+      });
+      // keyup disables it
+      $('body').keyup(function (e) {
+        if (e.keyCode === 16 || e.keyCode === 17 || e.metaKey || e.keyCode === 224 || e.keyCode === 91 || e.keyCode === 93) {
+          $scope.gridApi.selection.setMultiSelect(false);
+        }
+      });
 
   });

@@ -6,9 +6,6 @@ angular.module('contactsApp')
     $scope.contacts = [];
 
 
-
-
-
     $scope.getContacts = function() {
       $http.get('/api/contacts').success(function (contacts) {
         $scope.contacts = contacts;
@@ -24,6 +21,7 @@ angular.module('contactsApp')
       }
       $http.post('/api/contacts', JSON.stringify(data)).success(function(data){
         $scope.getContacts();
+        return data;
       });
 
     };

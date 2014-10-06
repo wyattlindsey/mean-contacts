@@ -12,8 +12,8 @@ angular.module('contactsApp')
       $('.contact-pane-avatar').html(avatarImageHTML);
     };
 
-    this.setAvatarImage = function(imageURL) {
-      var avatarImageHTML = '<img src="' + imageURL + '" height="250" width="250" ' +
+    this.setDetailsView = function(contactData) {
+      var avatarImageHTML = '<img src="' + contactData.avatar + '" height="250" width="250" ' +
           'class="img-rounded">';
       $('.contact-pane-avatar').html(avatarImageHTML);
     };
