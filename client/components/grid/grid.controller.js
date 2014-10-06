@@ -31,7 +31,7 @@ angular.module('contactsApp')
             // logic for updating data in contact details
             if ($scope.selectedItems.length === 1) {
               // pull data into contact details
-              detailsViewService.setDetailsView(row.entity);
+              detailsViewService.setDetailsView($scope.selectedItems[0]);
             } else {
               //clear out data and pull in defaults
               detailsViewService.clearDetailsView();
@@ -80,14 +80,12 @@ angular.module('contactsApp')
 
       };
 
-      //keydown to enable multi-select
+      // keydown/keyup to enable/disable multi-select
       $('body').keydown(function (e) {
         if ((e.keyCode === 16 || e.keyCode === 17 || e.metaKey || e.keyCode === 224 || e.keyCode === 91 || e.keyCode === 93) && !$scope.multiSelect) {
           $scope.gridApi.selection.setMultiSelect(true);
         }
-      });
-      // keyup disables it
-      $('body').keyup(function (e) {
+      }).keyup(function (e) {
         if (e.keyCode === 16 || e.keyCode === 17 || e.metaKey || e.keyCode === 224 || e.keyCode === 91 || e.keyCode === 93) {
           $scope.gridApi.selection.setMultiSelect(false);
         }

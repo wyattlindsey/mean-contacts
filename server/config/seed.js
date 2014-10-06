@@ -11,15 +11,16 @@ var faker = require('./faker');
 Contact.find({}).remove(function() {
   for(var i=0; i < 5; i++) {
     Contact.create({
-      firstName:    faker.name.firstName(),
-      lastName:     faker.name.lastName(),
-      phone:        faker.phone.phoneNumber(),
-      email:        faker.internet.email(),
-      userName:     faker.internet.userName(),
-      street:       faker.address.streetAddress(),
-      cityStateZip: faker.address.city() + ", " + faker.address.state()
+      firstName:        faker.name.firstName(),
+      lastName:         faker.name.lastName(),
+      phone:            faker.phone.phoneNumber(),
+      email:            faker.internet.email(),
+      skype:            faker.internet.userName(),
+      streeAddress:     faker.address.streetAddress(),
+      secondaryAddress: faker.address.secondaryAddress(),
+      cityStateZip:     faker.address.city() + ", " + faker.address.stateAbbr()
         + ", " + faker.address.zipCode(),
-      avatar:       faker.internet.avatar()
+      avatar:           faker.internet.avatar()
     });
   }
 });
