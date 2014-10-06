@@ -11,7 +11,9 @@ var ContactSchema = new Schema({
   skype:                String,
   streetAddress:        String,
   secondaryAddress:     String,
-  cityStateZip:         String,
+  city:                 String,
+  state:                String,
+  zip:                  String,
   avatar:               String
 
 });

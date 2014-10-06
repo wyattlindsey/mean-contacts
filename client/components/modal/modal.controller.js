@@ -43,7 +43,9 @@ angular.module('contactsApp').controller('ModalInstanceCtrl', function($scope, $
       skype:            modalForm.skype.$modelValue,
       streetAddress:    modalForm.streetAddress.$modelValue,
       secondaryAddress: modalForm.secondaryAddress.$modelValue,
-      cityStateZip:     modalForm.cityStateZip.$modelValue,
+      city:             modalForm.city.$modelValue,
+      state:            modalForm.state.$modelValue,
+      zip:              modalForm.zip.$modelValue,
       avatar:           $scope.formData.avatar
     };
 
@@ -68,8 +70,9 @@ angular.module('contactsApp').controller('ModalInstanceCtrl', function($scope, $
     } else {
       $('input[name="secondaryAddress"]').val('');
     }
-    $('input[name="cityStateZip"]').val(faker.address.city() + ", " + faker.address.stateAbbr()
-                                          + ", " + faker.address.zipCode());
+    $('input[name="city"]').val(faker.address.city());
+    $('input[name="state"]').val(faker.address.stateAbbr());
+    $('input[name="zip"]').val(faker.address.zipCode());
     // get image URL and append it to modal
     var imageURL = faker.internet.avatar();
     var avatarImageHTML = '<img src="' + imageURL + '" height="150" width="150" ' +
