@@ -85,8 +85,8 @@ angular.module('contactsApp')
         for (var selectedItem in $scope.selectedItems) {
           $scope.deleteContact($scope.selectedItems[selectedItem]._id);
         }
-
-//        $scope.getContacts();
+        $scope.selectedItems = [];
+        detailsViewService.clearDetailsView();
       };
 
       // keydown/keyup to enable/disable multi-select

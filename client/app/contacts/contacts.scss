@@ -25,6 +25,34 @@
 
   #contact-details-pane {
     margin-top: 55px;
+
+    .contact-name {
+      margin-bottom: 20px;
+    }
+
+    .contact-address {
+      margin-top: 20px;
+
+      .contact-street-address {
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
+
+      .contact-secondary-address {
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
+
+      .contact-city-state {
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
+
+      .contact-zip {
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
+    }
   }
 
 }

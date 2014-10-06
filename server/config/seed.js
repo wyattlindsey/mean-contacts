@@ -16,7 +16,7 @@ Contact.find({}).remove(function() {
       phone:            faker.phone.phoneNumber(),
       email:            faker.internet.email(),
       skype:            faker.internet.userName(),
-      streeAddress:     faker.address.streetAddress(),
+      streetAddress:     faker.address.streetAddress(),
       secondaryAddress: faker.address.secondaryAddress(),
       city:             faker.address.city(),
       state:            faker.address.stateAbbr(),

@@ -23,14 +23,14 @@ block content
 					div.container-fluid
 						div.col-md-6
 							div.h2.contact-name
-							div.contact-phone
-							div.contact-email
-							div.contact-skype
+							div.h5.contact-phone(tooltip='Phone', tooltip-placement='left')
+							div.h5.contact-email(tooltip='Email', tooltip-placement='left')
+							div.h5.contact-skype(tooltip='Skype', tooltip-placement='left')
 							div.contact-address
-								div.contact-street-address
-								div.contact-secondary-address
-								div.contact-city-state
-								div.contact-zip
+								div.h5.contact-street-address(tooltip='Street Address', tooltip-placement='left')
+								div.h5.contact-secondary-address(tooltip='Secondary Address', tooltip-placement='left')
+								div.h5.contact-city-state(tooltip='City, State', tooltip-placement='left')
+								div.h5.contact-zip(tooltip='Zip', tooltip-placement='left')
 						div.col-md-6
 							div.contact-pane-avatar
 								img(src="http://upload.wikimedia.org/wikipedia/en/b/b1/Portrait_placeholder.png" height="250" width="250")
