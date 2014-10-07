@@ -17,7 +17,7 @@
     "method-override": "~1.0.0",
     "mongoose": "~3.8.8",
     "morgan": "~1.0.0",
-    "newrelic": "^1.11.4",
+    "newrelic": "1.11.5",
     "replacestream": "^0.2.0",
     "serve-favicon": "~2.0.1"
   },

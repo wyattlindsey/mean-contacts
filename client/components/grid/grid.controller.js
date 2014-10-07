@@ -108,4 +108,10 @@ angular.module('contactsApp')
         }
       });
 
+      //handle case of meta-tab to other application
+      //where keyup never happens and multi-select stays true
+      $(window).blur(function() {
+        $scope.gridApi.selection.setMultiSelect(false);
+      });
+
   });
