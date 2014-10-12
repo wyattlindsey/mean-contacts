@@ -18,8 +18,10 @@ module.exports = function(app) {
   app.route('/:url(api|auth|components|app|bower_components|assets)/*')
    .get(errors[404]);
 
+
   app.route('/contacts')
       .get(function(req, res) {
+        // rewrite script element in <head> using replacestream
         // workaround to get New Relic browser timing to work with pre-compiled Jade
         // templates from Angular -> Grunt
         var nrHeader = newrelic.getBrowserTimingHeader();

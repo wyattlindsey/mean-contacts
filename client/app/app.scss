@@ -19,6 +19,20 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 // injector
 @import 'contacts/contacts.scss';
 @import 'main/main.scss';
+@import 'variables.scss';
 @import 'contactDetails/contactDetails.scss';
 @import 'modal/modal.scss';
 // endinjector
+
+/* centered columns styles */
+.row-centered {
+  text-align:center;
+}
+.col-centered {
+  display:inline-block;
+  float:none;
+  /* reset the text-align */
+  text-align:left;
+  /* inline-block space fix */
+  margin-right:-4px;
+}

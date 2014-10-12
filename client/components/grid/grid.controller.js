@@ -90,6 +90,8 @@ angular.module('contactsApp')
 
       $scope.deleteSelected = function() {
 
+
+
         for (var selectedItem in $scope.selectedItems) {
           $scope.deleteContact($scope.selectedItems[selectedItem]._id);
         }

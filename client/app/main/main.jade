@@ -2,5 +2,17 @@ extends ../default
 
 block content
 
-	header#banner.hero-unit
-		a(href='/contacts') Contacts
+	div.container
+		div.row.code-block.row-centered
+			div.col-md-10.col-centered
+				p This is a small app I wrote to learn the MEAN (Mongo+Express+Angular+Node) stack.  It's not done yet but the basic CRUD operations are in place so you should plenty of good Browser Monitoring data in Session Traces and AJAX calls.  The app reports to <a href="https://rpm.newrelic.com/accounts/254790/applications/4042513">https://rpm.newrelic.com/accounts/254790/applications/4042513</a>
+				p To use, just click Contacts above and enjoy the randomly created people compliments of faker.js.
+				p Create: hit the Add New Button and use the "Generate random person" button to quickly create a random fake contact.
+				p Edit: double click any value in the data grid to edit in place.
+				p Delete: select one or more (shift or cmd for multi-select) and hit the Delete Selected button.
+				p Since the Jade templates are pre-compiled by Grunt, there isn't a way to inject the Browser Monitoring header with the Node API using !=newrelic.getBrowserMonitoringHeader.  The <head> tag is actually in index.html on the client side since that's what the angular-fullstack yeoman generator created.  I haven't converted it to Jade.  Since the templates aren't compiled by Node, the agent doesn't get a chance to execute that function.
+				p A customer (<a href="https://newrelic.zendesk.com/agent/#/tickets/109895">https://newrelic.zendesk.com/agent/#/tickets/109895</a>) found a way to get around this by placing <script id="nr"></script> in <head>  Then he used a module called replacestream to substitute the API call for that tag in index.html.  Here are the relevant parts from routes.js:
+
+		div.row.code-block.row-centered
+			div.col-md-7.col-centered
+				include replace-stream-code-block.html

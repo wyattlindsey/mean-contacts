@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <pre class="prettyprint lang-js">
+    <code>
+      var newrelic = require('newrelic');
+      var fs = require('fs');
+      var replaceStream = require('replacestream');
+
+      code module.exports = function(app) {
+      app.route('/contacts')
+        .get(function(req, res) {
+          var nrHeader = newrelic.getBrowserTimingHeader();
+          fs.createReadStream(app.get('appPath') + '/index.html')
+        .pipe(replaceStream('<script id="nr"></script>', nrHeader))
+        .pipe(res);
+      };
+    </code>
+  </pre>
+</body>
+</html>
