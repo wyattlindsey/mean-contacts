@@ -1,5 +1,7 @@
 .main-app {
 
+  font-size: 14px;
+
   .contacts-toolbar {
 
     .centered {
@@ -10,6 +12,8 @@
 
           .btn {
             margin-bottom: 15px;
+            font-size: 16px;
+            font-weight: bold;
           }
         }
 
@@ -18,55 +22,30 @@
   }
 
   .gridStyle {
-    border: 1px solid rgb(212,212,212);
+    border: 3px solid rgb(212,212,212);
     height: 600px;
     width: auto;
-  }
+    margin-bottom: 45px;
+    background-color: #FFF;
+    border-radius: $border-radius-large;
 
-  #contact-details-pane {
-    margin-top: 55px;
-
-    .contact-name {
-      margin-top: 20px;
-      margin-bottom: 25px;
-      text-align: center;
-
-      .contact-first-name {
-        margin-bottom: 10px;
-        margin-top: 0px;
-      }
-
-      .contact-last-name {
-        margin-bottom: 0px;
-        margin-top: 0px;
-      }
+    .ui-grid-row:nth-child(even) .ui-grid-cell {
+      background-color: lighten($gray-lighter, 5%);
     }
 
-    .contact-address {
-      margin-top: 20px;
+    .ui-grid-cell-contents {
+      padding-left: 10px;
+    }
 
-      .contact-street-address {
-        margin-top: 5px;
-        margin-bottom: 5px;
-      }
+    .ui-grid-top-panel {
+      padding-top: 4px;
+      border-top-right-radius: $border-radius-large;
+      border-top-left-radius: $border-radius-large;
+    }
 
-      .contact-secondary-address {
-        margin-top: 5px;
-        margin-bottom: 5px;
-      }
-
-      .contact-city-state {
-        margin-top: 5px;
-        margin-bottom: 5px;
-      }
-
-      .contact-zip {
-        margin-top: 5px;
-        margin-bottom: 5px;
-      }
+    .ui-grid-canvas {
     }
   }
-
 }
 
 
