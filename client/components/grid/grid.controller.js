@@ -8,10 +8,6 @@ angular.module('contactsApp')
       $scope.allowCellEdit = true;
       $scope.editInProgress = false;
 
-      $scope.$watch('editInProgress', function() {
-        console.log('changed');
-      });
-
       $scope.gridOptions = {
         data: 'contacts',
         enableFiltering: true,
@@ -27,44 +23,47 @@ angular.module('contactsApp')
 
             $scope.selectedItems = gridApi.selection.getSelectedRows();
 
-            // TO-DO logic for multi-select when shift/ctr/meta key are pressed down
-
-            // handle case where row is deselected
-            if ($scope.selectedItems === row.entity && !row.isSelected) {
-              //clear out data and pull in defaults
-              $scope.selectedItems = [];
-              $scope.singleSelectedItem = null;
-            }
-
             // logic for updating data in contact details view
             if ($scope.selectedItems.length === 1) {
               //just one item selected
-              $scope.singleSelectedItem = row.entity;
+              $scope.singleSelectedItem = $scope.selectedItems[0];
             } else {
               //clear out data and pull in defaults when more than one row is selected
               $scope.singleSelectedItem = null;
             }
+
+            if ($scope.editInProgress) {
+              $scope.selectSingleRow(row.entity);
+            }
+
           });
 
           gridApi.edit.on.beginCellEdit($scope, function(rowEntity, colDef) {
             $scope.editInProgress = true;
             $scope.singleSelectedItem = rowEntity;
+            $scope.selectSingleRow(rowEntity);
             $scope.$apply();
           });
 
           gridApi.edit.on.cancelCellEdit($scope, function(rowEntity, colDef) {
             $scope.editInProgress = false;
-            $scope.singleSelectedItem = null;
-            $scope.selectedItems = [];
+            $scope.selectSingleRow(rowEntity);
             $scope.$apply();
           });
 
           gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
+
             $scope.editInProgress = false;
-            $scope.singleSelectedItem = null;
-            $scope.selectedItems = [];
-            $scope.updateContact(rowEntity._id, rowEntity);
-            $scope.$apply();
+            var editedRow = rowEntity;
+
+            if (newValue != oldValue) {
+              $scope.updateContact(rowEntity._id, rowEntity)
+                .then(function() {
+                    $scope.getContacts().then(function() {
+                      $scope.selectSingleRow(editedRow);
+                    });
+                  });
+            }
           });
 
 
@@ -118,9 +117,10 @@ angular.module('contactsApp')
           }
         ];
 
-      $scope.selectSingleRow = function() {
-
-
+      $scope.selectSingleRow = function(rowEntity) {
+        $scope.selectedItems = rowEntity;
+        $scope.singleSelectedItem = rowEntity;
+        $scope.gridApi.selection.selectRow(rowEntity);
       };
 
       $scope.deleteSelected = function() {
@@ -129,12 +129,8 @@ angular.module('contactsApp')
           $scope.deleteContact($scope.selectedItems[selectedItem]._id);
         }
         $scope.selectedItems = [];
+        $scope.getContacts();
       };
-
-      // handle editing/double-click/deselection conundrum
-      $('.contacts-grid').dblclick(function() {
-        $scope.allowCellEdit = true;
-      });
 
       // keydown/keyup to enable/disable multi-select
       $('body').keydown(function (e) {
