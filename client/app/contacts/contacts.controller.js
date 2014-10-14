@@ -10,12 +10,11 @@ angular.module('contactsApp')
 
       $http.get('/api/contacts').success(function (contacts) {
         $scope.contacts = contacts;
-        deferred.resolve();
+        deferred.resolve(contacts);
       }).
-      error(function(data) {
-        deferred.reject('Get failed: ' + data);
+      error(function(err) {
+        deferred.reject('Get failed: ' + err);
       });
-
       return deferred.promise;
     };
 
@@ -24,14 +23,18 @@ angular.module('contactsApp')
     $scope.getContacts();
 
     $scope.addContact = function(data) {
-      if (data === '') {
-        return;
-      }
-      $http.post('/api/contacts', JSON.stringify(data)).success(function(data) {
-        $scope.getContacts();
-        return data;
-      });
+      var deferred = $q.defer();
 
+      if (data === '') {
+        deferred.reject('no data');
+      } else {
+        $http.post('/api/contacts', JSON.stringify(data)).success(function(data) {
+          deferred.resolve(data);
+        }).error(function(err) {
+          deferred.reject(err);
+        });
+      }
+      return deferred.promise;
     };
 
 
@@ -69,3 +72,4 @@ angular.module('contactsApp')
     };
 
   });
+

@@ -36,3 +36,6 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
   /* inline-block space fix */
   margin-right:-4px;
 }
+.clear-floats {
+  clear: both;
+}

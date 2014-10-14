@@ -1,4 +1,5 @@
 #contact-details-pane {
+  border-style: none !important;
   margin-top: 55px;
   font-size: 16px;
   font-weight: bold;
@@ -7,8 +8,9 @@
 
   .contact-pane-avatar img {
     width: 100%;
-    max-width: 250px;
+    max-width: 200px;
     height: auto;
+    margin-top: 20px;
   }
 
   .contact-name {
@@ -27,8 +29,15 @@
     }
   }
 
+  .contact-phone, .contact-email, .contact-skype {
+    text-align: center;
+  }
+
   .contact-address {
+    text-align: center;
     margin-top: 20px;
+    margin-bottom: 20px;
+//    margin-left: 20%;
 
     .contact-street-address {
     }
@@ -36,10 +45,34 @@
     .contact-secondary-address {
     }
 
-    .contact-city-state {
+    .contact-city {
+    }
+
+    .contact-state {
     }
 
     .contact-zip {
     }
   }
 }
+
+// override xeditable styles
+.editable-empty {
+  visibility: hidden;
+}
+
+.editable-click {
+  border-bottom-style: none !important;
+  color: lighten($brand-primary, 10%) !important;
+
+
+}
+
+.editable-input {
+  max-width: 300px;
+
+  @media screen and (max-width: 1300px) {
+    max-width: 200px;
+  }
+}
+

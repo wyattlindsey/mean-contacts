@@ -10,7 +10,7 @@ angular.module('contactsApp')
           if (newValue === oldValue) {
             return false;
           } else if (!newValue) {
-            console.log('empty');
+            $('.contact-pane-avatar img').attr('src', 'http://upload.wikimedia.org/wikipedia/en/b/b1/Portrait_placeholder.png');
           }
         });
       }

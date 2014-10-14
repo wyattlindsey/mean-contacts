@@ -22,7 +22,6 @@ angular.module('contactsApp')
           gridApi.selection.on.rowSelectionChanged($scope, function(row){
 
             $scope.selectedItems = gridApi.selection.getSelectedRows();
-            console.log(row);
 
             // logic for updating data in contact details view
             if ($scope.selectedItems.length === 1) {
@@ -130,6 +129,7 @@ angular.module('contactsApp')
         $scope.selectedItems[0] = rowEntity;
         $scope.singleSelectedItem = rowEntity;
         $scope.gridApi.selection.selectRow(rowEntity);
+        // To do: find out why selecting the row after addContact() doesn't show the selected Style
       };
 
       $scope.deleteSelected = function() {

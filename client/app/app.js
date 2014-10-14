@@ -8,7 +8,8 @@ angular.module('contactsApp', [
   'ui.bootstrap',
   'ui.grid',
   'ui.grid.selection',
-  'ui.grid.edit'
+  'ui.grid.edit',
+  'xeditable'
 ])
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider
@@ -18,4 +19,11 @@ angular.module('contactsApp', [
 
     $locationProvider.html5Mode(true);
 
-  });
+
+
+  })
+    .run(function(editableOptions) {
+      editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+    });;
+
+

@@ -1,25 +1,28 @@
 div.container-fluid.well
-	div.col-md-6
-		div.contact-name
-			div.h2.contact-first-name(tooltip='First name',
-				tooltip-placement='left') {{singleSelectedItem.firstName}}
-			div.h2.contact-last-name(tooltip='Last name',
-				tooltip-placement='left') {{singleSelectedItem.lastName}}
-		div.contact-phone(tooltip='Phone',
-			tooltip-placement='left') {{singleSelectedItem.phone}}
-		div.contact-email(tooltip='Email',
-			tooltip-placement='left') {{singleSelectedItem.email}}
-		div.contact-skype(tooltip='Skype',
-			tooltip-placement='left') {{singleSelectedItem.skype}}
-		div.contact-address
-			div.contact-street-address(tooltip='Street Address',
-				tooltip-placement='left') {{singleSelectedItem.streetAddress}}
-			div.contact-secondary-address(tooltip='Secondary Address',
-				tooltip-placement='left') {{singleSelectedItem.secondaryAddress}}
-			div.contact-city-state(tooltip='City, State',
-				tooltip-placement='left') {{singleSelectedItem.city}} {{singleSelectedItem.state}}
-			div.contact-zip(tooltip='Zip',
-				tooltip-placement='left') {{singleSelectedItem.zip}}
-	div.col-md-6
+	div.row-centered
 		div.contact-pane-avatar
-			img(src="{{singleSelectedItem.avatar}}" height="250" width="250")
+			img.well(src="{{singleSelectedItem.avatar}}" height="200" width="200")
+	div.row.row-centered
+		div.col-md-8.col-centered
+			div.contact-name
+				div.h2.contact-first-name(tooltip='First name',
+					tooltip-placement='left', editable-text="singleSelectedItem.firstName") {{singleSelectedItem.firstName}}
+				div.h2.contact-last-name(tooltip='Last name',
+					tooltip-placement='right', editable-text="singleSelectedItem.lastName")  {{singleSelectedItem.lastName}}
+			div.contact-phone(tooltip='Phone',
+				tooltip-placement='left', editable-text="singleSelectedItem.phone") {{singleSelectedItem.phone}}
+			div.contact-email(tooltip='Email',
+				tooltip-placement='left', editable-text="singleSelectedItem.email") {{singleSelectedItem.email}}
+			div.contact-skype(tooltip='Skype',
+				tooltip-placement='left', editable-text="singleSelectedItem.skype") {{singleSelectedItem.skype}}
+			div.contact-address
+				div.contact-street-address(tooltip='Street Address',
+					tooltip-placement='left', editable-text="singleSelectedItem.streetAddress") {{singleSelectedItem.streetAddress}}
+				div.contact-secondary-address(tooltip='Secondary Address',
+					tooltip-placement='left', editable-text="singleSelectedItem.secondaryAddress") {{singleSelectedItem.secondaryAddress}}
+				div.contact-city(tooltip='City',
+					tooltip-placement='left', editable-text="singleSelectedItem.city") {{singleSelectedItem.city}},&nbsp
+					span.contact-state(tooltip='State',
+						tooltip-placement='right', editable-text="singleSelectedItem.state") {{singleSelectedItem.state}}
+				div.contact-zip(tooltip='Zip',
+					tooltip-placement='left', editable-text="singleSelectedItem.zip") {{singleSelectedItem.zip}}

@@ -3,6 +3,7 @@
 angular.module('contactsApp')
   .controller('ModalCtrl', function($scope, $modal, detailsViewService) {
 
+    $scope.newlyCreated = {};
     $scope.open = function() {
 
       var modalInstance = $modal.open({
@@ -13,10 +14,16 @@ angular.module('contactsApp')
 
       modalInstance.result.then(function (data) {
         //result of clicking "Create"
-        $scope.addContact(data);
+        $scope.addContact(data).then(function(data) {
+          $scope.getContacts().then(function() {
+          $scope.selectSingleRow(data);
+          });
+        });
       }, function () {
         // cancel
       });
+
+
 
       // trying to get focus on first form field every time, not just the first
       // so far, no luck
