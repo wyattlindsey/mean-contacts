@@ -1,0 +1,12 @@
+block content
+	div(ng-controller="ModalCtrl")
+		div.modal-alert
+			div.h3.b.alert-header Confirm Delete
+			div.alert-body
+				p Are you sure you want to delete the selected Contacts?
+			div.row
+				div.modal-primary-buttons.pull-right
+					button.btn.btn-large.btn-danger(type='button',
+						ng-click='modalConfirmButton()') Delete
+					div.modal-primary-buttons
+						button.btn.btn-large(type='button', ng-click='modalCancelButton()') Cancel

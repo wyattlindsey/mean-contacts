@@ -5,15 +5,16 @@ block content
 		div.row-fluid.main-app(ng-controller='GridCtrl')
 			div.col-md-7.contacts-toolbar
 				div.centered
-					div.row-fluid.contacts-toolbar-controls
+					div.row-fluid.contacts-toolbar-controls(ng-controller='ModalCtrl')
 						div.col-md-6
-							div.create-contact(ng-controller='ModalCtrl')
+							div.create-contact
 								button.btn.btn-large.btn-primary(type='button',
-									ng-click='open()')
+									ng-click='openCreateDialog()')
 									i.fa.fa-plus &nbsp;Add New Contact
 						div.col-md-6
-							div.delete-selected.btn.btn-large.btn-warning(type='button',
-									ng-click='deleteSelected()')
+							div.delete-selected
+								button.btn.btn-large.btn-warning(type='button',
+									ng-click='openConfirmModalInstance()')
 									i.fa.fa-trash &nbsp;Delete Selected
 				div.contacts-grid
 					div.gridStyle(ui-grid='gridOptions', ui-grid-selection, ui-grid-edit)

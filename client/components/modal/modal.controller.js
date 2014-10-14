@@ -1,18 +1,20 @@
 'use strict';
 
 angular.module('contactsApp')
-  .controller('ModalCtrl', function($scope, $modal, detailsViewService) {
+  .controller('ModalCtrl', function($scope, $modal) {
 
-    $scope.newlyCreated = {};
-    $scope.open = function() {
+    var dialog = null;
 
-      var modalInstance = $modal.open({
-        templateUrl: './components/modal/modal.html',
-        controller: 'ModalInstanceCtrl',
+    $scope.openCreateDialog = function() {
+
+      var creationModalInstance = $modal.open({
+        templateUrl: './components/modal/creationModal.html',
+        controller: 'CreationModalInstanceCtrl',
+        scope: $scope,
         resolve: {}
       });
 
-      modalInstance.result.then(function (data) {
+      creationModalInstance.result.then(function (data) {
         //result of clicking "Create"
         $scope.addContact(data).then(function(data) {
           $scope.getContacts().then(function() {
@@ -23,20 +25,36 @@ angular.module('contactsApp')
         // cancel
       });
 
-
-
       // trying to get focus on first form field every time, not just the first
       // so far, no luck
-      modalInstance.opened.then(function() {
+      creationModalInstance.opened.then(function() {
         $('.contacts-modal').on('shown.bs.modal', function(){
           $(this).find('input:text:visible:first').focus();
         });
       });
     };
 
+    $scope.openConfirmModalInstance = function() {
+
+      var confirmModalInstance = $modal.open({
+        templateUrl: './components/modal/confirmModal.html',
+        controller: 'ConfirmDeleteInstanceCtrl',
+        resolve: {}
+      });
+
+      confirmModalInstance.result.then(function (data) {
+          //result of clicking "Delete"
+          $scope.deleteSelected($scope.selectedItems);
+        }, function () {
+          // cancel
+        });
+    };
+
+
+
   });
 
-angular.module('contactsApp').controller('ModalInstanceCtrl', function($scope, $modalInstance, $http) {
+angular.module('contactsApp').controller('CreationModalInstanceCtrl', function($scope, $modalInstance) {
 
   $scope.formData = {};
 
@@ -99,4 +117,18 @@ angular.module('contactsApp').controller('ModalInstanceCtrl', function($scope, $
   $scope.modalCancelButton = function() {
     $modalInstance.dismiss('cancel');
   };
+});
+
+angular.module('contactsApp').controller('ConfirmDeleteInstanceCtrl', function($scope, $modalInstance) {
+
+  //can't seem to get the items to list out in the confirm dialog
+  console.log($scope.selectedItems);
+  $scope.modalCancelButton = function() {
+    $modalInstance.dismiss('cancel');
+  };
+
+  $scope.modalConfirmButton = function() {
+    $modalInstance.close();
+  };
+
 });

@@ -199,6 +199,7 @@ angular.module('contactsApp')
         $scope.allowCellEdit = true;
       });
 
+
       // arrow keys move selection up and down
       $(document).keydown(function(e) {
         switch(e.which) {
