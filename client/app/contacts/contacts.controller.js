@@ -19,6 +19,7 @@ angular.module('contactsApp')
       return deferred.promise;
     };
 
+
     // initialize table data
     $scope.getContacts();
 
@@ -33,8 +34,8 @@ angular.module('contactsApp')
 
     };
 
-    $scope.updateContact = function(id, data) {
 
+    $scope.updateContact = function(id, data) {
       var deferred = $q.defer();
 
       if (data === '' || id === '') {
@@ -43,22 +44,28 @@ angular.module('contactsApp')
         $http.put('/api/contacts/' + id, JSON.stringify(data)).success(function () {
             deferred.resolve();
         }).
-            error(function (data) {
-              deferred.reject('Update failed: ' + data);
-            });
+        error(function (data) {
+          deferred.reject('Update failed: ' + data);
+        });
       }
-
       return deferred.promise;
     };
 
 
     $scope.deleteContact = function(id) {
-      $http.delete('/api/contacts/' + id).success(function(data) {
-        return data;
-      }).
-      error(function(err) {
-        console.log(err);
-      });
+      var deferred = $q.defer();
+
+      if (id === '') {
+        deferred.reject('no ID provided')
+      } else {
+        $http.delete('/api/contacts/' + id).success(function(data) {
+          deferred.resolve();
+        }).
+        error(function(err) {
+          console.log(err);
+        });
+      }
+      return deferred.promise;
     };
 
   });

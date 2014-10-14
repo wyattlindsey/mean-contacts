@@ -9,7 +9,7 @@ var Contact = require('../api/contact/contact.model');
 var faker = require('./faker');
 
 Contact.find({}).remove(function() {
-  for(var i=0; i < 25; i++) {
+  for(var i=0; i < 100; i++) {
     Contact.create({
       firstName:        faker.name.firstName(),
       lastName:         faker.name.lastName(),

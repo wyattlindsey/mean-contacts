@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('contactsApp')
-  .controller('GridCtrl', function ($scope, detailsViewService) {
+  .controller('GridCtrl', function ($scope, $q, detailsViewService) {
 
       $scope.selectedItems = [];
       $scope.singleSelectedItem = null;
@@ -125,11 +125,37 @@ angular.module('contactsApp')
 
       $scope.deleteSelected = function() {
 
-        for (var selectedItem in $scope.selectedItems) {
-          $scope.deleteContact($scope.selectedItems[selectedItem]._id);
-        }
-        $scope.selectedItems = [];
-        $scope.getContacts();
+        var deleteLoop = function() {
+
+          var deferred = $q.defer();
+          var i = 0;
+          var deletePromise;
+          $scope.qtyResolved = 0;
+
+          $scope.$watch('qtyResolved', function() {
+            if ($scope.qtyResolved == $scope.selectedItems.length) {
+              deferred.resolve();
+            }
+          });
+
+          while (i < $scope.selectedItems.length) {
+            deletePromise = $scope.deleteContact($scope.selectedItems[i]._id);
+            deletePromise.then(function() {
+              $scope.qtyResolved ++;
+            });
+            i++;
+          }
+          return deferred.promise;
+        };
+
+        var promise = deleteLoop();
+        promise.then(function() {
+          $scope.getContacts();
+          $scope.selectedItems = [];
+          $scope.singleSelectedItem = null;
+        }, function(err) {
+          console.log(err);
+        });
       };
 
       // keydown/keyup to enable/disable multi-select
