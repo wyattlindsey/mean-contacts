@@ -6,23 +6,34 @@ div.container-fluid.well
 		div.col-md-8.col-centered
 			div.contact-name
 				div.h2.contact-first-name(tooltip='First name',
-					tooltip-placement='left', editable-text="singleSelectedItem.firstName") {{singleSelectedItem.firstName}}
+					tooltip-placement='left', editable-text="singleSelectedItem.firstName",
+					onaftersave='updateContactDetails()') {{singleSelectedItem.firstName}}
 				div.h2.contact-last-name(tooltip='Last name',
-					tooltip-placement='right', editable-text="singleSelectedItem.lastName")  {{singleSelectedItem.lastName}}
+					tooltip-placement='right', editable-text="singleSelectedItem.lastName",
+					onaftersave='updateContactDetails()')  {{singleSelectedItem.lastName}}
 			div.contact-phone(tooltip='Phone',
-				tooltip-placement='left', editable-text="singleSelectedItem.phone") {{singleSelectedItem.phone}}
+				tooltip-placement='left', editable-text="singleSelectedItem.phone",
+				onaftersave='updateContactDetails()') {{singleSelectedItem.phone}}
 			div.contact-email(tooltip='Email',
-				tooltip-placement='left', editable-text="singleSelectedItem.email") {{singleSelectedItem.email}}
+				tooltip-placement='left', editable-text="singleSelectedItem.email",
+				onaftersave='updateContactDetails()') {{singleSelectedItem.email}}
 			div.contact-skype(tooltip='Skype',
-				tooltip-placement='left', editable-text="singleSelectedItem.skype") {{singleSelectedItem.skype}}
-			div.contact-address
+				tooltip-placement='left', editable-text="singleSelectedItem.skype",
+				onaftersave='updateContactDetails()') {{singleSelectedItem.skype}}
+			hr
+			div.contact-address.col-md-8.col-md-offset-3
 				div.contact-street-address(tooltip='Street Address',
-					tooltip-placement='left', editable-text="singleSelectedItem.streetAddress") {{singleSelectedItem.streetAddress}}
+					tooltip-placement='left', editable-text="singleSelectedItem.streetAddress",
+					onaftersave='updateContactDetails()') {{singleSelectedItem.streetAddress}}
 				div.contact-secondary-address(tooltip='Secondary Address',
-					tooltip-placement='left', editable-text="singleSelectedItem.secondaryAddress") {{singleSelectedItem.secondaryAddress}}
+					tooltip-placement='left', editable-text="singleSelectedItem.secondaryAddress",
+					onaftersave='updateContactDetails()') {{singleSelectedItem.secondaryAddress}}
 				div.contact-city(tooltip='City',
-					tooltip-placement='left', editable-text="singleSelectedItem.city") {{singleSelectedItem.city}},&nbsp
+					tooltip-placement='left', editable-text="singleSelectedItem.city",
+					onaftersave='updateContactDetails()') {{singleSelectedItem.city}},&nbsp
 					span.contact-state(tooltip='State',
-						tooltip-placement='right', editable-text="singleSelectedItem.state") {{singleSelectedItem.state}}
+						tooltip-placement='right', editable-text="singleSelectedItem.state",
+						onaftersave='updateContactDetails()') {{singleSelectedItem.state}}
 				div.contact-zip(tooltip='Zip',
-					tooltip-placement='left', editable-text="singleSelectedItem.zip") {{singleSelectedItem.zip}}
+					tooltip-placement='left', editable-text="singleSelectedItem.zip",
+					onaftersave='updateContactDetails()') {{singleSelectedItem.zip}}

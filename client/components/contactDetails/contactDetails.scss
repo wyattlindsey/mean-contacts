@@ -19,13 +19,15 @@
     text-align: center;
 
     .contact-first-name {
-      margin-bottom: 10px;
       margin-top: 0px;
+      display: inline;
+      display: inline;
     }
 
     .contact-last-name {
       margin-bottom: 0px;
       margin-top: 0px;
+      display: inline;
     }
   }
 
@@ -34,10 +36,16 @@
   }
 
   .contact-address {
-    text-align: center;
+    text-align: left;
     margin-top: 20px;
     margin-bottom: 20px;
-//    margin-left: 20%;
+
+    .editable-input {
+      margin-left: -100px;
+      @media screen and (max-width: 867px) {
+        margin-left: 0px;
+      }
+    }
 
     .contact-street-address {
     }
@@ -52,6 +60,7 @@
     }
 
     .contact-zip {
+      text-align: right;
     }
   }
 }
@@ -63,9 +72,7 @@
 
 .editable-click {
   border-bottom-style: none !important;
-  color: lighten($brand-primary, 10%) !important;
-
-
+  color: darken($brand-primary, 10%) !important;
 }
 
 .editable-input {
@@ -74,5 +81,9 @@
   @media screen and (max-width: 1300px) {
     max-width: 200px;
   }
+}
+
+.hover-lighten {
+  color: lighten($brand-primary, 20%) !important;
 }
 

@@ -6,6 +6,16 @@ angular.module('contactsApp')
       templateUrl: 'components/contactDetails/contactDetails.html',
       restrict: 'AE',
       link: function (scope, element, attrs) {
+
+        $('.editable-click').hover(
+            function () {
+              $(this).addClass('.hover-lighten');
+            },
+            function () {
+              $(this).removeClass('.hover-lighten');
+            }
+        );
+
         scope.$watch('singleSelectedItem', function(newValue, oldValue) {
           if (newValue === oldValue) {
             return false;

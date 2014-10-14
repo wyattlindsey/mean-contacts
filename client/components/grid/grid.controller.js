@@ -125,11 +125,21 @@ angular.module('contactsApp')
         ];
 
       $scope.selectSingleRow = function(rowEntity) {
-        $scope.gridApi.selection.clearSelectedRows();
+//        $scope.gridApi.selection.clearSelectedRows();  // seems to overflow the call stack
         $scope.selectedItems[0] = rowEntity;
         $scope.singleSelectedItem = rowEntity;
         $scope.gridApi.selection.selectRow(rowEntity);
         // To do: find out why selecting the row after addContact() doesn't show the selected Style
+      };
+
+      $scope.updateContactDetails = function() {
+        $scope.updateContact($scope.singleSelectedItem._id, $scope.singleSelectedItem)
+            .then(function() {
+              $scope.getContacts();
+            })
+            .then(function() {
+              $scope.selectSingleRow($scope.singleSelectedItem);
+            });
       };
 
       $scope.deleteSelected = function() {
