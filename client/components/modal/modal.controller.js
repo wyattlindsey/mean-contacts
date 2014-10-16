@@ -49,9 +49,6 @@ angular.module('contactsApp')
           // cancel
         });
     };
-
-
-
   });
 
 angular.module('contactsApp').controller('CreationModalInstanceCtrl', function($scope, $modalInstance) {
@@ -59,6 +56,8 @@ angular.module('contactsApp').controller('CreationModalInstanceCtrl', function($
   $scope.formData = {};
 
   $scope.modalFormSubmit = function(modalForm) {
+
+    $scope.formData.qty = qty.qty.$modelValue;
 
     $scope.formData = {
       firstName:        modalForm.firstName.$modelValue,
@@ -73,6 +72,8 @@ angular.module('contactsApp').controller('CreationModalInstanceCtrl', function($
       zip:              modalForm.zip.$modelValue,
       avatar:           $scope.formData.avatar
     };
+
+//    console.log($scope.formData.qty);
 
     $modalInstance.close($scope.formData);
   };

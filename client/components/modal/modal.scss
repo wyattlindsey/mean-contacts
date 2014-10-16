@@ -37,7 +37,7 @@
 .modal-alert {
 
   .alert-header {
-    background-color: $brand-danger;
+    background-color: darken($brand-danger, 20%);
     color: #fff !important;
     padding: 20px;
     text-align: center;
@@ -53,5 +53,10 @@
     margin-right: 15px;
     padding: 10px;
     display: inline-block;
+    .btn-danger {
+      background-color: darken($brand-danger, 20%);
+      border-color: darken($brand-danger, 28%);
+    }
+
   }
 }

@@ -3,46 +3,50 @@ block content
 		div.contacts-modal
 			div.contacts-modal-header
 				h2 Create new contact
-				div.modal-random-button
-					button.btn.btn-large.btn-success(type='button', ng-click='generateRandomPerson()') Generate random person
+
 			div.contacts-modal-body
 				form(name='modalForm', novalidate, ng-submit='modalFormSubmit(modalForm)')
 					fieldset
-						div.col-md-4.col-md-offset-2
-							div.modal-field
+						div.modal-random-button
+							button.btn.btn-large.btn-success(type='button', ng-click='generateRandomPerson()') Generate random people
+							span.qtyField
 								label
-									input(type='text', name='firstName', placeholder='First name', ng-model='formData.firstName', autofocus)
-							div.modal-field
-								label
-									input(type='text', name='lastName', placeholder='Last name', ng-model='formData.lastName')
-							div.modal-field
-								label
-									input(type='text', name='phone', placeholder='Phone', ng-model='formData.phone')
-							div.modal-field
-								label
-									input(type='text', name='email', placeholder='Email', ng-model='formData.email')
-							div.modal-field
-								label
-									input(type='text', name='skype', placeholder='Skype', ng-model='formData.skype')
-						div.col-md-4
-							div.modal-field
-								label
-									input(type='text', name='streetAddress', placeholder='Street address', ng-model='formData.streetAddress')
-							div.modal-field
-								label
-									input(type='text', name='secondaryAddress', placeholder='Secondary address', ng-model='formData.secondaryAddress')
-							div.modal-field
-								label
-									input(type='text', name='city', placeholder='City', ng-model='formData.city')
-							div.modal-field
-								label
-									input(type='text', name='state', placeholder='State', ng-model='formData.state')
-							div.modal-field
-								label
-									input(type='text', name='zip', placeholder='Zip', ng-model='formData.zip')
-						div.modal-avatar
-							img(src="http://upload.wikimedia.org/wikipedia/en/b/b1/Portrait_placeholder.png" height="150" width="150")
-						div.modal-primary-buttons
-							button.btn.btn-large.btn-primary(type='submit') Create
-						div.modal-primary-buttons
-							button.btn.btn-large.btn-warning(type='button', ng-click='modalCancelButton()') Cancel
+									input(type='text', name='qty', placeholder='1', ng-model='formData.qty', autofocus)
+							div.col-md-4.col-md-offset-2
+								div.modal-field
+									label
+										input(type='text', name='firstName', placeholder='First name', ng-model='formData.firstName', autofocus)
+								div.modal-field
+									label
+										input(type='text', name='lastName', placeholder='Last name', ng-model='formData.lastName')
+								div.modal-field
+									label
+										input(type='text', name='phone', placeholder='Phone', ng-model='formData.phone')
+								div.modal-field
+									label
+										input(type='text', name='email', placeholder='Email', ng-model='formData.email')
+								div.modal-field
+									label
+										input(type='text', name='skype', placeholder='Skype', ng-model='formData.skype')
+							div.col-md-4
+								div.modal-field
+									label
+										input(type='text', name='streetAddress', placeholder='Street address', ng-model='formData.streetAddress')
+								div.modal-field
+									label
+										input(type='text', name='secondaryAddress', placeholder='Secondary address', ng-model='formData.secondaryAddress')
+								div.modal-field
+									label
+										input(type='text', name='city', placeholder='City', ng-model='formData.city')
+								div.modal-field
+									label
+										input(type='text', name='state', placeholder='State', ng-model='formData.state')
+								div.modal-field
+									label
+										input(type='text', name='zip', placeholder='Zip', ng-model='formData.zip')
+							div.modal-avatar
+								img(src="http://upload.wikimedia.org/wikipedia/en/b/b1/Portrait_placeholder.png" height="150" width="150")
+							div.modal-primary-buttons
+								button.btn.btn-large.btn-primary(type='submit') Create
+							div.modal-primary-buttons
+								button.btn.btn-large.btn-warning(type='button', ng-click='modalCancelButton()') Cancel

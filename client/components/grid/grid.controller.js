@@ -199,6 +199,13 @@ angular.module('contactsApp')
         $scope.allowCellEdit = true;
       });
 
+      $('body').keydown(function (e) {
+        if (e.keyCode === 8 || e.keyCode === 46) {
+          e.preventDefault();
+          $scope.deleteSelected();
+        }
+      });
+
 
       // arrow keys move selection up and down
       $(document).keydown(function(e) {
