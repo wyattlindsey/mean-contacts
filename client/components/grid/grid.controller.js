@@ -19,14 +19,13 @@ angular.module('contactsApp')
       $scope.gridOptions.onRegisterApi = function(gridApi) {
           $scope.gridApi = gridApi;
 
-          gridApi.selection.on.rowSelectionChanged($scope, function(row){
+          gridApi.selection.on.rowSelectionChanged($scope, function(row) {
 
-            var numItems = $scope.selectedItems.length;
             // deselecting row when multiple items are selected but multiSelect is false
-            if (numItems > 1 && !$scope.gridOptions.multiSelect && !row.isSelected) {
-              $scope.singleSelectedItem = null;
-              for (var i = 0; i <= numItems; i++) {
-                if (row.entity == $scope.selectedItems[i]) {
+            var numItems = $scope.selectedItems.length;
+            if (numItems > 1 && !$scope.gridOptions.multiSelect) {
+              for (var i = 0; i < numItems; i++) {
+                if (row.entity === $scope.selectedItems[i]) {
                   $scope.selectSingleRow(row.entity);
                 }
               }
@@ -145,8 +144,10 @@ angular.module('contactsApp')
         ];
 
       $scope.selectSingleRow = function(rowEntity) {
-//        $scope.gridApi.selection.clearSelectedRows();  // seems to overflow the call stack
-        $scope.selectedItems.length = 0;
+        if (!$scope.editInProgress) {
+          $scope.gridApi.selection.clearSelectedRows();
+        }
+        $scope.selectedItems = {};
         $scope.selectedItems[0] = rowEntity;
         $scope.singleSelectedItem = rowEntity;
         $scope.gridApi.selection.selectRow(rowEntity);
