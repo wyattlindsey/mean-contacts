@@ -102,7 +102,8 @@ angular.module('contactsApp')
             },
             filter: {
               condition: function(searchTerm, cellValue) {
-                return cellValue.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0;
+                var strippedValue = cellValue + '';
+                return strippedValue.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0;
               }
             }
           },
@@ -116,7 +117,8 @@ angular.module('contactsApp')
             },
             filter: {
               condition: function(searchTerm, cellValue) {
-                return cellValue.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0;
+                var strippedValue = cellValue + '';
+                return strippedValue.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0;
               }
             }
           },
@@ -137,7 +139,8 @@ angular.module('contactsApp')
             },
             filter: {
               condition: function(searchTerm, cellValue) {
-                return cellValue.toLowerCase().search(searchTerm.toLowerCase()) >= 0;
+                var strippedValue = cellValue + '';
+                return strippedValue.toLowerCase().search(searchTerm.toLowerCase()) >= 0;
               }
             }
           }
@@ -223,10 +226,16 @@ angular.module('contactsApp')
 
       $('body').keydown(function (e) {
         if (e.keyCode === 8 || e.keyCode === 46) {
-          e.preventDefault();
-          $scope.$broadcast('openConfirmEvent');
+          if (event.target.className !== 'ui-grid-filter-input ng-valid ng-dirty') {
+            e.preventDefault();
+            if ($scope.selectedItems.length) {
+              $scope.$broadcast('openConfirmEvent');
+            }
+          }
         }
       });
+
+
 
 
       // arrow keys move selection up and down

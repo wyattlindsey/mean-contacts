@@ -67,7 +67,7 @@ angular.module('contactsApp').controller('CreationModalInstanceCtrl', function($
 
   $scope.modalFormSubmit = function(modalForm) {
 
-    $scope.formData.qty = qty.qty.$modelValue;
+//    $scope.formData.qty = qty.qty.$modelValue;
 
     $scope.formData = {
       firstName:        modalForm.firstName.$modelValue,
@@ -80,10 +80,10 @@ angular.module('contactsApp').controller('CreationModalInstanceCtrl', function($
       city:             modalForm.city.$modelValue,
       state:            modalForm.state.$modelValue,
       zip:              modalForm.zip.$modelValue,
-      avatar:           $scope.formData.avatar
+      avatar:           $scope.formData.avatar,
+      qty:              10
     };
 
-//    console.log($scope.formData.qty);
 
     $modalInstance.close($scope.formData);
   };
@@ -120,9 +120,9 @@ angular.module('contactsApp').controller('CreationModalInstanceCtrl', function($
 
     // very dirty hack that updates angular's model of the form data with what
     // was just put in the view
-    $('.contacts-modal-body input:visible, #my-form select:visible').each(function(){
-      $(this).trigger('input');
-    });
+//    $('.contacts-modal-body input:visible, #my-form select:visible').each(function(){
+//      $(this).trigger('input');
+//    });
   };
 
   $scope.modalCancelButton = function() {

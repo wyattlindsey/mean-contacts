@@ -8,9 +8,18 @@
 
   .contacts-modal-header {
       padding-bottom: 20px;
+  }
+
+  .contacts-modal-body {
 
     .modal-random-button {
       padding-top: 10px;
+      padding-bottom: 25px !important;
+    }
+
+    .qtyField input {
+      margin-left: 30px;
+      width: 30px;
     }
   }
 }

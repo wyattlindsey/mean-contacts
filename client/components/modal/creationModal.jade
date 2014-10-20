@@ -7,11 +7,12 @@ block content
 			div.contacts-modal-body
 				form(name='modalForm', novalidate, ng-submit='modalFormSubmit(modalForm)')
 					fieldset
-						div.modal-random-button
+						div.row.modal-random-button
 							button.btn.btn-large.btn-success(type='button', ng-click='generateRandomPerson()') Generate random people
 							span.qtyField
 								label
-									input(type='text', name='qty', placeholder='1', ng-model='formData.qty', autofocus)
+									input(type='text', name='qty', placeholder='1', ng-model='formData.qty')
+						div.row
 							div.col-md-4.col-md-offset-2
 								div.modal-field
 									label
