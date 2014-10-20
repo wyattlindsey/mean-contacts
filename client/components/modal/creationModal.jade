@@ -8,7 +8,7 @@ block content
 				form(name='modalForm', novalidate, ng-submit='modalFormSubmit(modalForm)')
 					fieldset
 						div.row.modal-random-button
-							button.btn.btn-large.btn-success(type='button', ng-click='generateRandomPerson()') Generate random people
+							button.btn.btn-large.btn-success(type='button', ng-click='generateRandomPerson(formData.qty)') Generate random people
 							span.qtyField
 								label
 									input(type='text', name='qty', placeholder='1', ng-model='formData.qty')

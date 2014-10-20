@@ -226,7 +226,7 @@ angular.module('contactsApp')
 
       $('body').keydown(function (e) {
         if (e.keyCode === 8 || e.keyCode === 46) {
-          if (event.target.className !== 'ui-grid-filter-input ng-valid ng-dirty') {
+          if (event.target.nodeName !== 'INPUT') {
             e.preventDefault();
             if ($scope.selectedItems.length) {
               $scope.$broadcast('openConfirmEvent');
