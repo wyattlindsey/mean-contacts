@@ -21,6 +21,17 @@ angular.module('contactsApp')
 
           gridApi.selection.on.rowSelectionChanged($scope, function(row){
 
+            var numItems = $scope.selectedItems.length;
+            // deselecting row when multiple items are selected but multiSelect is false
+            if (numItems > 1 && !$scope.gridOptions.multiSelect && !row.isSelected) {
+              $scope.singleSelectedItem = null;
+              for (var i = 0; i <= numItems; i++) {
+                if (row.entity == $scope.selectedItems[i]) {
+                  $scope.selectSingleRow(row.entity);
+                }
+              }
+            }
+
             $scope.selectedItems = gridApi.selection.getSelectedRows();
 
             // logic for updating data in contact details view
@@ -32,12 +43,21 @@ angular.module('contactsApp')
               $scope.singleSelectedItem = null;
             }
 
-            // deselecting row when multiple items are selected but multiSelect is false
-            if ($scope.selectedItems.length > 1 && !$scope.gridOptions.multiSelect && !row.isSelected) {
-              $scope.selectedItems = [];
-              $scope.singleSelectedItem = null;
-              $scope.selectSingleRow(row.entity);
-            }
+
+
+
+//              $scope.selectSingleRow(row.entity);
+//            } else {
+//
+//              for each (var item in $scope.selectedItems) {
+//                if (row === item) {
+//                  console.log('true');
+//                }
+//              }
+//              $scope.selectedItems = [];
+//              $scope.singleSelectedItem = null;
+//              $scope.selectSingleRow(row.entity);
+//            }
 
             if ($scope.editInProgress) {
               $scope.selectSingleRow(row.entity);
@@ -126,6 +146,7 @@ angular.module('contactsApp')
 
       $scope.selectSingleRow = function(rowEntity) {
 //        $scope.gridApi.selection.clearSelectedRows();  // seems to overflow the call stack
+        $scope.selectedItems.length = 0;
         $scope.selectedItems[0] = rowEntity;
         $scope.singleSelectedItem = rowEntity;
         $scope.gridApi.selection.selectRow(rowEntity);
@@ -202,7 +223,7 @@ angular.module('contactsApp')
       $('body').keydown(function (e) {
         if (e.keyCode === 8 || e.keyCode === 46) {
           e.preventDefault();
-          $scope.deleteSelected();
+          $scope.$broadcast('openConfirmEvent');
         }
       });
 

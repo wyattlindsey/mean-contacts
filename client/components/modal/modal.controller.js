@@ -3,7 +3,8 @@
 angular.module('contactsApp')
   .controller('ModalCtrl', function($scope, $modal) {
 
-    var dialog = null;
+
+
 
     $scope.openCreateDialog = function() {
 
@@ -34,6 +35,12 @@ angular.module('contactsApp')
       });
     };
 
+
+    // so that grid controller (parent) can call openConfirmModalInstance()
+    $scope.$on('openConfirmEvent', function(e) {
+      $scope.openConfirmModalInstance();
+    });
+
     $scope.openConfirmModalInstance = function() {
 
       var confirmModalInstance = $modal.open({
@@ -47,6 +54,9 @@ angular.module('contactsApp')
           $scope.deleteSelected($scope.selectedItems);
         }, function () {
           // cancel
+          console.log($scope.selectedItems);
+          $scope.gridApi.selection.setMultiSelect(false);
+          $scope.gridOptions.multiSelect = false;
         });
     };
   });
@@ -131,5 +141,7 @@ angular.module('contactsApp').controller('ConfirmDeleteInstanceCtrl', function($
   $scope.modalConfirmButton = function() {
     $modalInstance.close();
   };
+
+
 
 });
