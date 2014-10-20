@@ -68,29 +68,52 @@ angular.module('contactsApp')
 
 angular.module('contactsApp').controller('CreationModalInstanceCtrl', function($scope, $modalInstance) {
 
-  $scope.formData = {};
+  $scope.formData = [];
 
   $scope.modalFormSubmit = function(modalForm) {
 
 
+    // pull from data for first member in random people array
+    $scope.formData[0] = {
+      firstName:        modalForm.firstName.$modelValue,
+      lastName:         modalForm.lastName.$modelValue,
+      phone:            modalForm.phone.$modelValue,
+      email:            modalForm.email.$modelValue,
+      skype:            modalForm.skype.$modelValue,
+      streetAddress:    modalForm.streetAddress.$modelValue,
+      secondaryAddress: modalForm.secondaryAddress.$modelValue,
+      city:             modalForm.city.$modelValue,
+      state:            modalForm.state.$modelValue,
+      zip:              modalForm.zip.$modelValue,
+      avatar:           $scope.formData.avatar
+    };
 
-//      $scope.formData = {
-//        firstName:        modalForm.firstName.$modelValue,
-//        lastName:         modalForm.lastName.$modelValue,
-//        phone:            modalForm.phone.$modelValue,
-//        email:            modalForm.email.$modelValue,
-//        skype:            modalForm.skype.$modelValue,
-//        streetAddress:    modalForm.streetAddress.$modelValue,
-//        secondaryAddress: modalForm.secondaryAddress.$modelValue,
-//        city:             modalForm.city.$modelValue,
-//        state:            modalForm.state.$modelValue,
-//        zip:              modalForm.zip.$modelValue,
-//        avatar:           $scope.formData.avatar
-//      };
+    // additional random entries beyond the form data
+    for (var i = 1; i < $scope.qty; i++) {
+      console.log('created additional entry');
+      console.log($scope.qty);
+      $scope.formData[i] = {};
+      $scope.formData[i].firstName = faker.name.firstName();
+      $scope.formData[i].lastName = faker.name.lastName();
+      $scope.formData[i].phone = faker.phone.phoneNumber();
+      $scope.formData[i].email = faker.internet.email();
+      $scope.formData[i].userName = faker.internet.userName();
+      $scope.formData[i].firstName = faker.name.firstName();
+      $scope.formData[i].streetAddress = faker.address.streetAddress();
+      if (Math.random() > 0.6) {
+        $scope.formData[i].secondaryAddress = faker.address.secondaryAddress();
+      } else {
+        $scope.formData[i].secondaryAddress = '';
+      }
+      $scope.formData[i].city = faker.address.city();
+      $scope.formData[i].state = faker.address.stateAbbr();
+      $scope.formData[i].zip = faker.address.zipCode();
+      $scope.formData[i].avatar = faker.internet.avatar();
+      console.log($scope.formData[i].avatar);
+    }
 
 
 
-    console.log($scope.formData.Length);
     $modalInstance.close($scope.formData);
   };
 
@@ -99,47 +122,46 @@ angular.module('contactsApp').controller('CreationModalInstanceCtrl', function($
     //clear the avatar for the next random person
     $('.modal-avatar img').remove();
     //clear the avatar from the temporary data model
-    $scope.formData.avatar = null;
+//    $scope.formData.avatar = null;
 
-    if (!qty) {
-      qty = 1;
+    $scope.qty = qty; // get qty value from form
+    if (!$scope.qty) {
+      $scope.qty = 1;
     }
 
-    for (var i = 0; i < qty; i++) {
-      $scope.formData[i] = {};
-      $scope.formData[i].firstName = 'Wyatt';
+
+    $('input[name="firstName"]').val(faker.name.firstName());
+    $('input[name="lastName"]').val(faker.name.lastName());
+    $('input[name="phone"]').val(faker.phone.phoneNumber());
+    $('input[name="email"]').val(faker.internet.email());
+    $('input[name="skype"]').val(faker.internet.userName());
+    $('input[name="streetAddress"]').val(faker.address.streetAddress());
+    if (Math.random() > 0.6) {
+      $('input[name="secondaryAddress"]').val(faker.address.secondaryAddress());
+    } else {
+      $('input[name="secondaryAddress"]').val('');
     }
-
-    console.log($scope.formData);
-
-//    $('input[name="firstName"]').val(faker.name.firstName());
-//    $('input[name="lastName"]').val(faker.name.lastName());
-//    $('input[name="phone"]').val(faker.phone.phoneNumber());
-//    $('input[name="email"]').val(faker.internet.email());
-//    $('input[name="skype"]').val(faker.internet.userName());
-//    $('input[name="streetAddress"]').val(faker.address.streetAddress());
-//    if (Math.random() > 0.6) {
-//      $('input[name="secondaryAddress"]').val(faker.address.secondaryAddress());
-//    } else {
-//      $('input[name="secondaryAddress"]').val('');
-//    }
-//    $('input[name="city"]').val(faker.address.city());
-//    $('input[name="state"]').val(faker.address.stateAbbr());
-//    $('input[name="zip"]').val(faker.address.zipCode());
-//    // get image URL and append it to modal
-//    var imageURL = faker.internet.avatar();
-//    var avatarImageHTML = '<img src="' + imageURL + '" height="150" width="150" ' +
-//        'class="img-rounded">';
-//    $('.modal-avatar').html(avatarImageHTML);
-//    //add avatar to temporary data model
-//    $scope.formData.avatar = imageURL;
+    $('input[name="city"]').val(faker.address.city());
+    $('input[name="state"]').val(faker.address.stateAbbr());
+    $('input[name="zip"]').val(faker.address.zipCode());
+    // get image URL and append it to modal
+    var imageURL = faker.internet.avatar();
+    var avatarImageHTML = '<img src="' + imageURL + '" height="150" width="150" ' +
+        'class="img-rounded">';
+    $('.modal-avatar').html(avatarImageHTML);
+    //add avatar to temporary data model
+    $scope.formData[0] = {};
+    console.log(imageURL);
+    $scope.formData[0].avatar = imageURL;
 
 
     // very dirty hack that updates angular's model of the form data with what
     // was just put in the view
-//    $('.contacts-modal-body input:visible, #my-form select:visible').each(function(){
-//      $(this).trigger('input');
-//    });
+    $('.contacts-modal-body input:visible, #my-form select:visible').each(function(){
+      $(this).trigger('input');
+    });
+
+
   };
 
   $scope.modalCancelButton = function() {
