@@ -11,7 +11,8 @@ block content
 							button.btn.btn-large.btn-success(type='button', ng-click='generateRandomPerson(formData.qty)') Generate random people
 							span.qtyField
 								label
-									input(type='text', name='qty', placeholder='1', ng-model='formData.qty')
+									input.form-control.input-sm(type='number', name='qty', placeholder='1', ng-model='formData.qty')
+									span.error(ng-show='myForm.input.$error.number') Not valid number!
 						div.row
 							div.col-md-4.col-md-offset-2
 								div.modal-field

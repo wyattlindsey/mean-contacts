@@ -7,6 +7,7 @@ angular.module('contactsApp')
       $scope.singleSelectedItem = null;
       $scope.allowCellEdit = true;
       $scope.editInProgress = false;
+      $scope.unselectingMulti = false;
 
       $scope.gridOptions = {
         data: 'contacts',
@@ -21,42 +22,18 @@ angular.module('contactsApp')
 
           gridApi.selection.on.rowSelectionChanged($scope, function(row) {
 
-            // deselecting row when multiple items are selected but multiSelect is false
-            var numItems = $scope.selectedItems.length;
-            if (numItems > 1 && !$scope.gridOptions.multiSelect) {
-              for (var i = 0; i < numItems; i++) {
-                if (row.entity === $scope.selectedItems[i]) {
-                  $scope.selectSingleRow(row.entity);
-                }
-              }
-            }
-
             $scope.selectedItems = gridApi.selection.getSelectedRows();
+
 
             // logic for updating data in contact details view
             if ($scope.selectedItems.length === 1) {
               //just one item selected
-              $scope.singleSelectedItem = $scope.selectedItems[0];
+              $scope.singleSelectedItem = row.entity;
             } else {
               //clear out data and pull in defaults when more than one row is selected
               $scope.singleSelectedItem = null;
             }
 
-
-
-
-//              $scope.selectSingleRow(row.entity);
-//            } else {
-//
-//              for each (var item in $scope.selectedItems) {
-//                if (row === item) {
-//                  console.log('true');
-//                }
-//              }
-//              $scope.selectedItems = [];
-//              $scope.singleSelectedItem = null;
-//              $scope.selectSingleRow(row.entity);
-//            }
 
             if ($scope.editInProgress) {
               $scope.selectSingleRow(row.entity);
@@ -150,9 +127,6 @@ angular.module('contactsApp')
         if (!$scope.editInProgress) {
           $scope.gridApi.selection.clearSelectedRows();
         }
-        $scope.selectedItems = {};
-        $scope.selectedItems[0] = rowEntity;
-        $scope.singleSelectedItem = rowEntity;
         $scope.gridApi.selection.selectRow(rowEntity);
         // To do: find out why selecting the row after addContact() doesn't show the selected Style
       };
@@ -168,6 +142,7 @@ angular.module('contactsApp')
       };
 
       $scope.deleteSelected = function() {
+        $scope.deleteMode = true;
 
         var deleteLoop = function() {
 
@@ -194,12 +169,14 @@ angular.module('contactsApp')
 
         deleteLoop().then(function() {
           $scope.getContacts();
+          $scope.deleteMode = false;
           $scope.selectedItems = [];
-          $scope.singleSelectedItem = null;
+//          $scope.singleSelectedItem = null;
         }, function(err) {
           console.log(err);
         });
       };
+
 
       // keydown/keyup to enable/disable multi-select
       $('body').keydown(function (e) {
