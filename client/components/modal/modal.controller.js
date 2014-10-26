@@ -3,6 +3,10 @@
 angular.module('contactsApp')
   .controller('ModalCtrl', function($scope, $modal) {
 
+      $scope.alerts = [
+        { type: 'danger', msg: 'Oh snap! Change a few things up and try submitting again.' },
+        { type: 'success', msg: 'Well done! You successfully read this important alert message.' }
+      ];
 
     $scope.openCreateDialog = function() {
 
@@ -47,14 +51,14 @@ angular.module('contactsApp')
     });
 
     $scope.openConfirmModalInstance = function() {
+      if ($scope.selectedItems.length) {
+        var confirmModalInstance = $modal.open({
+          templateUrl: './components/modal/confirmModal.html',
+          controller: 'ConfirmDeleteInstanceCtrl',
+          resolve: {}
+        });
 
-      var confirmModalInstance = $modal.open({
-        templateUrl: './components/modal/confirmModal.html',
-        controller: 'ConfirmDeleteInstanceCtrl',
-        resolve: {}
-      });
-
-      confirmModalInstance.result.then(function (data) {
+        confirmModalInstance.result.then(function (data) {
           //result of clicking "Delete"
           $scope.deleteSelected($scope.selectedItems);
         }, function () {
@@ -63,6 +67,10 @@ angular.module('contactsApp')
           $scope.gridApi.selection.setMultiSelect(false);
           $scope.gridOptions.multiSelect = false;
         });
+      } else {
+        alert('No contacts selected');
+      }
+
     };
   });
 

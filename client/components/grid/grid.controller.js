@@ -205,9 +205,7 @@ angular.module('contactsApp')
         if (e.keyCode === 8 || e.keyCode === 46) {
           if (event.target.nodeName !== 'INPUT') {
             e.preventDefault();
-            if ($scope.selectedItems.length) {
-              $scope.$broadcast('openConfirmEvent');
-            }
+            $scope.$broadcast('openConfirmEvent');
           }
         }
       });
