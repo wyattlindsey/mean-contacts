@@ -5,13 +5,15 @@ block content
 				h2 Create new contact
 
 			div.contacts-modal-body
+				progressbar.progress-striped.active(animate='true', type='success', ng-style='progress_bar_style', value='10', max='20')
+				div {{progressBarValue}} / {{progressBarMax}}
 				form(name='modalForm', novalidate, ng-submit='modalFormSubmit(modalForm)')
 					fieldset
 						div.row.modal-random-button
 							button.btn.btn-large.btn-success(type='button', ng-click='generateRandomPerson(formData.qty)') Generate random people
 							span.qtyField
 								label
-									input.form-control.input-sm(type='number', name='qty', placeholder='1', ng-model='formData.qty')
+									input.form-control.input-sm(type='number', name='qty', placeholder='1', pattern="[0-9]*", ng-model='formData.qty')
 									span.error(ng-show='myForm.input.$error.number') Not valid number!
 						div.row
 							div.col-md-4.col-md-offset-2

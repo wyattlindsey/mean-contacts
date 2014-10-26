@@ -1,0 +1,7 @@
+block content
+	div(ng-controller="ProgressBarCtrl")
+
+		progressbar.progress-striped.active(animate='true', type='success', value='progressBarValue', max='progressBarMax')
+			span {{progressBarValue}} / {{progressBarMax}}
+
+		h2 Hello Progress Bar

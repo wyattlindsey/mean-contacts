@@ -19,7 +19,7 @@
 
     .qtyField input {
       margin-left: 30px;
-      width: 80px;
+      width: 60px;
     }
   }
 }
@@ -68,4 +68,8 @@
     }
 
   }
+}
+
+.progress-bar {
+  transition: width 1s ease-in-out;
 }
