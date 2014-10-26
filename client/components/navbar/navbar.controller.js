@@ -3,12 +3,12 @@
 angular.module('contactsApp')
   .controller('NavbarCtrl', function ($scope, $location) {
     $scope.menu = [{
-      'title': 'Home',
-      'link': '/'
+      'title': 'Contacts',
+      'link': '/contacts'
     },
       {
-        'title': 'Contacts',
-        'link': '/contacts'
+        'title': 'Help',
+        'link': '/help'
       }];
 
     $scope.isCollapsed = true;
