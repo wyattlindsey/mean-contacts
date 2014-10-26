@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('contactsApp')
-  .controller('ModalCtrl', function($scope, $modal, $timeout) {
+  .controller('ModalCtrl', function($scope, $modal) {
 
 
     $scope.openCreateDialog = function() {
@@ -14,19 +14,14 @@ angular.module('contactsApp')
       });
 
       creationModalInstance.result.then(function (data) {
-        // result of clicking "Create"
-
-
-//        $scope.progressBarMax = 100000;
-//        for (var i = 0; i < 100000; i++) {
-//          $scope.progressBarValue = i;
-//          $timeout(function()
-//          {
-//            $scope.progress_bar_style = {  "width": i+'%'  };
-//          }, 1000);
-//          console.log(i);
-//        }
-
+        //result of clicking "Create"
+        for (var i = 0; i < data.length; i++) {
+          $scope.addContact(data[i]).then(function (data) {
+            $scope.getContacts().then(function () {
+              $scope.selectSingleRow(data[i]);
+            });
+          });
+        }
 //        $scope.addContact(data).then(function(data) {
 //          $scope.getContacts().then(function() {
 //            $scope.selectSingleRow(data);
@@ -52,6 +47,7 @@ angular.module('contactsApp')
     });
 
     $scope.openConfirmModalInstance = function() {
+
       var confirmModalInstance = $modal.open({
         templateUrl: './components/modal/confirmModal.html',
         controller: 'ConfirmDeleteInstanceCtrl',
@@ -63,19 +59,18 @@ angular.module('contactsApp')
           $scope.deleteSelected($scope.selectedItems);
         }, function () {
           // cancel
+          console.log($scope.selectedItems);
           $scope.gridApi.selection.setMultiSelect(false);
           $scope.gridOptions.multiSelect = false;
         });
     };
   });
 
-angular.module('contactsApp').controller('CreationModalInstanceCtrl', function($scope, $modalInstance, $timeout) {
+angular.module('contactsApp').controller('CreationModalInstanceCtrl', function($scope, $modalInstance) {
 
   $scope.formData = [];
 
   $scope.modalFormSubmit = function(modalForm) {
-
-
 
 
     // pull from data for first member in random people array
@@ -117,16 +112,6 @@ angular.module('contactsApp').controller('CreationModalInstanceCtrl', function($
       console.log($scope.formData[i].avatar);
     }
 
-//    var data = $scope.formData;
-//
-//    for (var i = 0; i < data.length; i++) {
-//      $scope.addContact(data[i]).then(function (data) {
-//        $scope.getContacts().then(function () {
-//          $scope.selectSingleRow(data[i]);
-//          $scope.progressValue = i+1;
-//        });
-//      });
-//    }
 
 
     $modalInstance.close($scope.formData);
@@ -179,8 +164,6 @@ angular.module('contactsApp').controller('CreationModalInstanceCtrl', function($
 
   };
 
-
-
   $scope.modalCancelButton = function() {
     $modalInstance.dismiss('cancel');
   };
@@ -189,14 +172,12 @@ angular.module('contactsApp').controller('CreationModalInstanceCtrl', function($
 angular.module('contactsApp').controller('ConfirmDeleteInstanceCtrl', function($scope, $modalInstance) {
 
   //can't seem to get the items to list out in the confirm dialog
-
+  console.log($scope.selectedItems);
   $scope.modalCancelButton = function() {
     $modalInstance.dismiss('cancel');
-    console.log('cancel');
   };
 
   $scope.modalConfirmButton = function() {
-    console.log('beleted');
     $modalInstance.close();
   };
 
