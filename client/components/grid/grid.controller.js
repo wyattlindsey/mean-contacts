@@ -10,6 +10,22 @@ angular.module('contactsApp')
       $scope.unselectingMulti = false;
       $scope.modalActive = false;
 
+      $scope.alerts = [];
+
+      $scope.addAlert = function(msg, type) {
+        // don't repeatedly add the same alert message
+        for (var i = 0; i < $scope.alerts.length; i++) {
+          if ($scope.alerts[i].msg === msg) {
+            return;
+          }
+        }
+        $scope.alerts.push({msg: msg, type: type});
+      };
+
+      $scope.closeAlert = function(index) {
+        $scope.alerts.splice(index, 1);
+      };
+
       $scope.gridOptions = {
         data: 'contacts',
         enableFiltering: true,
@@ -144,7 +160,14 @@ angular.module('contactsApp')
 
       $scope.deleteAction = function() {
         // control goes to the confirmation modal
-        $scope.$broadcast('openConfirmEvent');
+        if (!$scope.modalActive) {
+          if ($scope.selectedItems.length) {
+            $scope.$broadcast('openConfirmEvent');
+          } else {
+            $scope.addAlert('No contacts selected', 'error');
+            $scope.$apply();
+          }
+        }
       };
 
       $scope.deleteSelected = function() {
@@ -212,15 +235,10 @@ angular.module('contactsApp')
         if (e.keyCode === 8 || e.keyCode === 46) {
           if (event.target.nodeName !== 'INPUT') {
             e.preventDefault();
-            if (!$scope.modalActive) {
-              $scope.deleteAction();
-            }
+            $scope.deleteAction();
           }
         }
       });
-
-
-
 
       // arrow keys move selection up and down
       $(document).keydown(function(e) {

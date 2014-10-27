@@ -2,6 +2,13 @@
 
   font-size: 14px;
 
+  .alert-error {
+    background-color: lighten($brand-danger, 10%);
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+  }
+
   .contacts-toolbar {
 
     .centered {
@@ -18,6 +25,8 @@
         }
 
     }
+
+
 
   }
 
@@ -47,8 +56,6 @@
     }
   }
 }
-
-
 
 
 

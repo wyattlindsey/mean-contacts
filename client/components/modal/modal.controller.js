@@ -49,7 +49,6 @@ angular.module('contactsApp')
 
     // result of clicking 'Delete' button in main interace
     $scope.openConfirmModalInstance = function() {
-      if ($scope.selectedItems.length) {
         var confirmModalInstance = $modal.open({
           templateUrl: './components/modal/confirmModal.html',
           controller: 'ConfirmDeleteInstanceCtrl',
@@ -65,9 +64,6 @@ angular.module('contactsApp')
           $scope.gridApi.selection.setMultiSelect(false);
           $scope.gridOptions.multiSelect = false;
         });
-      } else {
-        alert('No contacts selected');
-      }
 
     };
   });
