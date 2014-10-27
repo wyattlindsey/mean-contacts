@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('contactsApp')
-  .controller('GridCtrl', function ($scope, $q) {
+  .controller('GridCtrl', function ($scope, $q, $modal) {
 
       $scope.selectedItems = [];
       $scope.singleSelectedItem = null;
@@ -31,6 +31,8 @@ angular.module('contactsApp')
         $scope.alerts.splice(index, 1);
       };
 
+      // set up ui-grid
+
       $scope.gridOptions = {
         data: 'contacts',
         enableFiltering: true,
@@ -39,11 +41,14 @@ angular.module('contactsApp')
         enableRowHeaderSelection: false
       };
 
+      // initialize ui-grid
+
       $scope.gridOptions.onRegisterApi = function(gridApi) {
           $scope.gridApi = gridApi;
 
           gridApi.selection.on.rowSelectionChanged($scope, function(row) {
 
+            // get current state of selected items
             $scope.selectedItems = gridApi.selection.getSelectedRows();
 
 
@@ -162,6 +167,58 @@ angular.module('contactsApp')
               $scope.selectSingleRow($scope.singleSelectedItem);
             });
       };
+
+      $scope.createContactsBulk = function(data) {
+//        for (var i = 0; i < data.length; i++) {
+//          $scope.addContact(data[i]);
+//        }
+//        $scope.getContacts();
+        $scope.creationMode = true;
+        $scope.progressMax = data.length;
+        var progressModal = $modal.open({
+          templateUrl: './components/modal/progressModal.html',
+          scope: $scope
+        });
+
+        var creationLoop = function() {
+
+
+
+          var deferred = $q.defer();
+          var i = 0;
+          var creationPromise;
+          $scope.qtyResolved = 0;
+
+          $scope.$watch('qtyResolved', function() {
+            if ($scope.qtyResolved == data.length) {
+              deferred.resolve();
+            }
+          });
+
+          while (i < data.length) {
+            creationPromise = $scope.addContact(data[i]);
+            creationPromise.then(function() {
+              $scope.qtyResolved++;
+              $scope.progressValue = $scope.qtyResolved;
+            });
+            i++;
+          }
+          return deferred.promise;
+        };
+
+        creationLoop().then(function() {
+          $scope.getContacts();
+          $scope.creationMode = false;
+          $scope.selectedItems = [];
+          $scope.singleSelectedItem = null;
+          progressModal.close();
+        }, function(err) {
+          console.log(err);
+        });
+
+      };
+
+      // function invoked when delete button or key is pressed
 
       $scope.deleteAction = function() {
         // control goes to the confirmation modal

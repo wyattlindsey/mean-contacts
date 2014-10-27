@@ -9,8 +9,6 @@ angular.module('contactsApp')
 
       $scope.$parent.modalActive = true;
 
-      //delete key brings up the delete confirm modal
-
       var creationModalInstance = $modal.open({
         templateUrl: './components/modal/creationModal.html',
         controller: 'CreationModalInstanceCtrl',
@@ -20,22 +18,12 @@ angular.module('contactsApp')
 
       creationModalInstance.result.then(function (data) {
         //result of clicking "Create"
-        for (var i = 0; i < data.length; i++) {
-          $scope.addContact(data[i]);
-        }
         $scope.getContacts();
+        $scope.createContactsBulk(data);
         $scope.$parent.modalActive = false;
       }, function () {
         // cancel
         $scope.$parent.modalActive = false;
-      });
-
-      // trying to get focus on first form field every time, not just the first
-      // so far, no luck
-      creationModalInstance.opened.then(function() {
-        $('.contacts-modal').on('shown.bs.modal', function(){
-          $(this).find('input:text:visible:first').focus();
-        });
       });
     };
 
@@ -49,6 +37,9 @@ angular.module('contactsApp')
 
     // result of clicking 'Delete' button in main interace
     $scope.openConfirmModalInstance = function() {
+
+        $scope.$parent.modalActive = true;
+
         var confirmModalInstance = $modal.open({
           templateUrl: './components/modal/confirmModal.html',
           controller: 'ConfirmDeleteInstanceCtrl',
@@ -58,13 +49,28 @@ angular.module('contactsApp')
         confirmModalInstance.result.then(function (data) {
           //result of clicking "Delete"
           $scope.deleteSelected($scope.selectedItems);
-          $scope.modalActive = false;
+          $scope.$parent.modalActive = false;
         }, function () {
           // cancel
           $scope.gridApi.selection.setMultiSelect(false);
           $scope.gridOptions.multiSelect = false;
+          $scope.$parent.modalActive = false;
         });
 
+    };
+
+    // progress modal
+    $scope.openProgressModal = function(qty) {
+      $scope.progressQty = qty;
+      var progressModal = $modal.open({
+        templateUrl: './components/modal/progressModal.html',
+        controller: 'ProgressModalInstanceCtrl',
+        resolve: {},
+        keyboard: false,
+        backdrop: 'static'
+      });
+
+      return progressModal.close;
     };
   });
 
@@ -111,7 +117,7 @@ angular.module('contactsApp').controller('CreationModalInstanceCtrl', function($
       $scope.formData[i].avatar = faker.internet.avatar();
     }
 
-    $scope.modalActive = false;
+    $scope.$parent.modalActive = false;
     // send final formData to the main modal controller
     $modalInstance.close($scope.formData);
   };
@@ -127,6 +133,7 @@ angular.module('contactsApp').controller('CreationModalInstanceCtrl', function($
     }
 
     // push values from faker.js to the current for fields
+
     $('input[name="firstName"]').val(faker.name.firstName());
     $('input[name="lastName"]').val(faker.name.lastName());
     $('input[name="phone"]').val(faker.phone.phoneNumber());
@@ -147,8 +154,7 @@ angular.module('contactsApp').controller('CreationModalInstanceCtrl', function($
         'class="img-rounded">';
     $('.modal-avatar').html(avatarImageHTML);
     //add avatar to temporary data model
-    $scope.formData[0] = {};
-    $scope.formData[0].avatar = imageURL;
+    $scope.formData.avatar = imageURL;
 
     // very dirty hack that updates angular's model of the form data with what
     // was just put in the view
@@ -175,5 +181,9 @@ angular.module('contactsApp').controller('ConfirmDeleteInstanceCtrl', function($
   };
 
 
+
+});
+
+angular.module('contactsApp').controller('ProgressModalInstanceCtrl', function($scope, $modalInstance) {
 
 });

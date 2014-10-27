@@ -1,0 +1,7 @@
+block content
+	div(ng-controller='GridCtrl')
+		div.progress-modal
+			h2 Progress
+			div.contacts-progress-bar
+				progressbar.progress-striped.active(animate='true', type='success',
+					value='(progressValue * 100/progressMax)', max='100')

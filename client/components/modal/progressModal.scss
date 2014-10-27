@@ -1,0 +1,11 @@
+.progress-modal {
+  text-align: center;
+
+  .contacts-progress-bar {
+    padding: 40px;
+  }
+}
+
+.contacts-progress-bar {
+  transition: width 1s ease-in-out;
+}
