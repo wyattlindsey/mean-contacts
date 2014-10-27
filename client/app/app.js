@@ -5,6 +5,7 @@ angular.module('contactsApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
+  'ngAnimate',
   'ui.bootstrap',
   'ui.grid',
   'ui.grid.selection',

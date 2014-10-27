@@ -9,7 +9,6 @@ angular.module('contactsApp')
       $scope.editInProgress = false;
       $scope.unselectingMulti = false;
       $scope.modalActive = false;
-
       $scope.alerts = [];
 
       $scope.addAlert = function(msg, type) {
@@ -20,6 +19,12 @@ angular.module('contactsApp')
           }
         }
         $scope.alerts.push({msg: msg, type: type});
+
+        // close alert after 4 seconds
+        setTimeout(function() {
+          $scope.closeAlert($scope.alerts.indexOf(msg));
+          $scope.$apply();
+        }, 4000);
       };
 
       $scope.closeAlert = function(index) {
@@ -165,7 +170,6 @@ angular.module('contactsApp')
             $scope.$broadcast('openConfirmEvent');
           } else {
             $scope.addAlert('No contacts selected', 'error');
-            $scope.$apply();
           }
         }
       };
@@ -236,6 +240,7 @@ angular.module('contactsApp')
           if (event.target.nodeName !== 'INPUT') {
             e.preventDefault();
             $scope.deleteAction();
+            $scope.$apply();  // seems to be necessary to update the view with any alerts
           }
         }
       });

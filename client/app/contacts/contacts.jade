@@ -6,7 +6,7 @@ block content
 			div.col-md-7.contacts-toolbar
 				div.centered
 					div.row-fluid
-						alert(ng-repeat='alert in alerts', type='{{alert.type}}', close='closeAlert($index)') {{alert.msg}}
+						alert.animate-repeat(ng-repeat='alert in alerts', data-ng-animate="'alert'" type='{{alert.type}}', close='closeAlert($index)') {{alert.msg}}
 					div.row-fluid.contacts-toolbar-controls(ng-controller='ModalCtrl')
 						div.col-md-6
 							div.create-contact
