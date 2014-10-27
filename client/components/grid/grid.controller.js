@@ -171,7 +171,7 @@ angular.module('contactsApp')
           $scope.getContacts();
           $scope.deleteMode = false;
           $scope.selectedItems = [];
-//          $scope.singleSelectedItem = null;
+          $scope.singleSelectedItem = null;
         }, function(err) {
           console.log(err);
         });

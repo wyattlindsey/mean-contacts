@@ -3,12 +3,9 @@
 angular.module('contactsApp')
   .controller('ModalCtrl', function($scope, $modal) {
 
-      $scope.alerts = [
-        { type: 'danger', msg: 'Oh snap! Change a few things up and try submitting again.' },
-        { type: 'success', msg: 'Well done! You successfully read this important alert message.' }
-      ];
-
     $scope.openCreateDialog = function() {
+
+      // Create button brings up this modal (see CreationModalInstanceCtrl controller below)
 
       var creationModalInstance = $modal.open({
         templateUrl: './components/modal/creationModal.html',
@@ -20,17 +17,9 @@ angular.module('contactsApp')
       creationModalInstance.result.then(function (data) {
         //result of clicking "Create"
         for (var i = 0; i < data.length; i++) {
-          $scope.addContact(data[i]).then(function (data) {
-            $scope.getContacts().then(function () {
-              $scope.selectSingleRow(data[i]);
-            });
-          });
+          $scope.addContact(data[i]);
         }
-//        $scope.addContact(data).then(function(data) {
-//          $scope.getContacts().then(function() {
-//            $scope.selectSingleRow(data);
-//          });
-//        });
+        $scope.getContacts();
       }, function () {
         // cancel
       });
@@ -45,11 +34,14 @@ angular.module('contactsApp')
     };
 
 
-    // so that grid controller (parent) can call openConfirmModalInstance()
+    // Delete button or key brings up this modal (see ConfirmDeleteInstanceCtrl controller below)
+
+    // so that grid controller (parent) can call openConfirmModalInstance(), namely for delete key event
     $scope.$on('openConfirmEvent', function(e) {
       $scope.openConfirmModalInstance();
     });
 
+    // result of clicking 'Delete' button in main interace
     $scope.openConfirmModalInstance = function() {
       if ($scope.selectedItems.length) {
         var confirmModalInstance = $modal.open({
@@ -121,7 +113,7 @@ angular.module('contactsApp').controller('CreationModalInstanceCtrl', function($
     }
 
 
-
+    // send final formData to the main modal controller
     $modalInstance.close($scope.formData);
   };
 
@@ -129,15 +121,13 @@ angular.module('contactsApp').controller('CreationModalInstanceCtrl', function($
 
     //clear the avatar for the next random person
     $('.modal-avatar img').remove();
-    //clear the avatar from the temporary data model
-//    $scope.formData.avatar = null;
 
     $scope.qty = qty; // get qty value from form
     if (!$scope.qty) {
       $scope.qty = 1;
     }
 
-
+    // push values from faker.js to the current for fields
     $('input[name="firstName"]').val(faker.name.firstName());
     $('input[name="lastName"]').val(faker.name.lastName());
     $('input[name="phone"]').val(faker.phone.phoneNumber());
@@ -159,9 +149,7 @@ angular.module('contactsApp').controller('CreationModalInstanceCtrl', function($
     $('.modal-avatar').html(avatarImageHTML);
     //add avatar to temporary data model
     $scope.formData[0] = {};
-    console.log(imageURL);
     $scope.formData[0].avatar = imageURL;
-
 
     // very dirty hack that updates angular's model of the form data with what
     // was just put in the view
@@ -179,8 +167,6 @@ angular.module('contactsApp').controller('CreationModalInstanceCtrl', function($
 
 angular.module('contactsApp').controller('ConfirmDeleteInstanceCtrl', function($scope, $modalInstance) {
 
-  //can't seem to get the items to list out in the confirm dialog
-  console.log($scope.selectedItems);
   $scope.modalCancelButton = function() {
     $modalInstance.dismiss('cancel');
   };

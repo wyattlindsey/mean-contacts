@@ -17,6 +17,19 @@
       padding-bottom: 25px !important;
     }
 
+    .error {
+      color: $brand-danger;
+      margin: 15px;
+    }
+
+    input.ng-invalid.ng-dirty {
+      background-color: lighten($brand-danger, 20%);
+    }
+
+    input.ng-valid.ng-dirty {
+      background-color: lighten($brand-success, 40%);
+    }
+
     .qtyField input {
       margin-left: 30px;
       width: 65px;
@@ -69,3 +82,5 @@
 
   }
 }
+
+

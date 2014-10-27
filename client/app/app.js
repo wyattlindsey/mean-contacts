@@ -14,7 +14,7 @@ angular.module('contactsApp', [
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider
       .otherwise({
-        redirectTo: '/contacts'
+        redirectTo: '/'
       });
 
     $locationProvider.html5Mode(true);
