@@ -1,13 +1,14 @@
 'use strict';
 
 angular.module('contactsApp')
-  .controller('GridCtrl', function ($scope, $q, detailsViewService) {
+  .controller('GridCtrl', function ($scope, $q) {
 
       $scope.selectedItems = [];
       $scope.singleSelectedItem = null;
       $scope.allowCellEdit = true;
       $scope.editInProgress = false;
       $scope.unselectingMulti = false;
+      $scope.modalActive = false;
 
       $scope.gridOptions = {
         data: 'contacts',
@@ -201,11 +202,14 @@ angular.module('contactsApp')
         $scope.allowCellEdit = true;
       });
 
+      //delete key brings up the delete confirm modal
       $('body').keydown(function (e) {
         if (e.keyCode === 8 || e.keyCode === 46) {
           if (event.target.nodeName !== 'INPUT') {
             e.preventDefault();
-            $scope.$broadcast('openConfirmEvent');
+            if (!$scope.modalActive) {
+              $scope.$broadcast('openConfirmEvent'); // only bring up alert confirm dialog if other modals aren't active
+            }
           }
         }
       });

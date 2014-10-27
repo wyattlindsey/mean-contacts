@@ -7,6 +7,10 @@ angular.module('contactsApp')
 
       // Create button brings up this modal (see CreationModalInstanceCtrl controller below)
 
+      $scope.$parent.modalActive = true;
+
+      //delete key brings up the delete confirm modal
+
       var creationModalInstance = $modal.open({
         templateUrl: './components/modal/creationModal.html',
         controller: 'CreationModalInstanceCtrl',
@@ -20,8 +24,10 @@ angular.module('contactsApp')
           $scope.addContact(data[i]);
         }
         $scope.getContacts();
+        $scope.$parent.modalActive = false;
       }, function () {
         // cancel
+        $scope.$parent.modalActive = false;
       });
 
       // trying to get focus on first form field every time, not just the first
@@ -53,9 +59,9 @@ angular.module('contactsApp')
         confirmModalInstance.result.then(function (data) {
           //result of clicking "Delete"
           $scope.deleteSelected($scope.selectedItems);
+          $scope.modalActive = false;
         }, function () {
           // cancel
-          console.log($scope.selectedItems);
           $scope.gridApi.selection.setMultiSelect(false);
           $scope.gridOptions.multiSelect = false;
         });
@@ -90,8 +96,6 @@ angular.module('contactsApp').controller('CreationModalInstanceCtrl', function($
 
     // additional random entries beyond the form data
     for (var i = 1; i < $scope.qty; i++) {
-      console.log('created additional entry');
-      console.log($scope.qty);
       $scope.formData[i] = {};
       $scope.formData[i].firstName = faker.name.firstName();
       $scope.formData[i].lastName = faker.name.lastName();
@@ -109,10 +113,9 @@ angular.module('contactsApp').controller('CreationModalInstanceCtrl', function($
       $scope.formData[i].state = faker.address.stateAbbr();
       $scope.formData[i].zip = faker.address.zipCode();
       $scope.formData[i].avatar = faker.internet.avatar();
-      console.log($scope.formData[i].avatar);
     }
 
-
+    $scope.modalActive = false;
     // send final formData to the main modal controller
     $modalInstance.close($scope.formData);
   };
