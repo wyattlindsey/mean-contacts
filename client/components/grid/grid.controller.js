@@ -142,6 +142,11 @@ angular.module('contactsApp')
             });
       };
 
+      $scope.deleteAction = function() {
+        // control goes to the confirmation modal
+        $scope.$broadcast('openConfirmEvent');
+      };
+
       $scope.deleteSelected = function() {
         $scope.deleteMode = true;
 
@@ -208,7 +213,7 @@ angular.module('contactsApp')
           if (event.target.nodeName !== 'INPUT') {
             e.preventDefault();
             if (!$scope.modalActive) {
-              $scope.$broadcast('openConfirmEvent'); // only bring up alert confirm dialog if other modals aren't active
+              $scope.deleteAction();
             }
           }
         }
