@@ -11,7 +11,7 @@ block content
 							button.btn.btn-large.btn-success(type='button', ng-disabled='modalForm.qty.$error.number', ng-click='generateRandomPerson(formData.qty)') Generate random people
 							span.qtyField
 								label
-									input.form-control.input-sm(type='number', name='qty', min='0', max='1000', placeholder='1', ng-model='formData.qty')
+									input.form-control.input-sm(type='number', name='qty', min='0', placeholder='1', ng-model='formData.qty')
 								div.error(ng-show='modalForm.qty.$error.number') Not valid number!
 						div.row
 							div.col-md-4.col-md-offset-2
@@ -56,5 +56,3 @@ block content
 								button.btn.btn-large.btn-primary(type='submit', ng-disabled='modalForm.firstName.$invalid || modalForm.email.$invalid') Create
 							div.modal-primary-buttons
 								button.btn.btn-large.btn-warning(type='button', ng-click='modalCancelButton()') Cancel
-							div.modal-primary-buttons
-								button.btn.btn-large.btn-danger(type='button', ng-click='openProgressModal()') Progress

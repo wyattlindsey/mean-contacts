@@ -48,7 +48,7 @@ angular.module('contactsApp')
 
         confirmModalInstance.result.then(function (data) {
           //result of clicking "Delete"
-          $scope.deleteSelected($scope.selectedItems);
+          $scope.deleteSelected();
           $scope.$parent.modalActive = false;
         }, function () {
           // cancel
