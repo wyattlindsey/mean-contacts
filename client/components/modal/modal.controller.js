@@ -18,7 +18,8 @@ angular.module('contactsApp')
 
       creationModalInstance.result.then(function (data) {
         //result of clicking "Create"
-        $scope.getContacts();
+
+        $scope.openProgressModal();
         $scope.createContactsBulk(data);
         $scope.$parent.modalActive = false;
       }, function () {
@@ -30,7 +31,7 @@ angular.module('contactsApp')
 
     // Delete button or key brings up this modal (see ConfirmDeleteInstanceCtrl controller below)
 
-    // so that grid controller (parent) can call openConfirmModalInstance(), namely for delete key event
+    // listener so that grid controller (parent) can call openConfirmModalInstance(), namely for delete key event
     $scope.$on('openConfirmEvent', function(e) {
       $scope.openConfirmModalInstance();
     });
@@ -48,6 +49,7 @@ angular.module('contactsApp')
 
         confirmModalInstance.result.then(function (data) {
           //result of clicking "Delete"
+          $scope.openProgressModal();
           $scope.deleteSelected();
           $scope.$parent.modalActive = false;
         }, function () {
@@ -59,19 +61,22 @@ angular.module('contactsApp')
 
     };
 
+
     // progress modal
-    $scope.openProgressModal = function(qty) {
-      $scope.progressQty = qty;
-      var progressModal = $modal.open({
+    $scope.openProgressModal = function() {
+      $scope.progressModal = $modal.open({
         templateUrl: './components/modal/progressModal.html',
-        controller: 'ProgressModalInstanceCtrl',
         resolve: {},
         keyboard: false,
-        backdrop: 'static'
+        backdrop: 'static',
+        scope: $scope
       });
-
-      return progressModal.close;
     };
+
+    // listener to close progress modal
+    $scope.$on('closeProgressModal', function(e) {
+      $scope.progressModal.close();
+    });
   });
 
 angular.module('contactsApp').controller('CreationModalInstanceCtrl', function($scope, $modalInstance) {
@@ -96,8 +101,11 @@ angular.module('contactsApp').controller('CreationModalInstanceCtrl', function($
       avatar:           $scope.formData.avatar
     };
 
+
+
     // additional random entries beyond the form data
     for (var i = 1; i < $scope.qty; i++) {
+      console.log()
       $scope.formData[i] = {};
       $scope.formData[i].firstName = faker.name.firstName();
       $scope.formData[i].lastName = faker.name.lastName();
@@ -116,6 +124,8 @@ angular.module('contactsApp').controller('CreationModalInstanceCtrl', function($
       $scope.formData[i].zip = faker.address.zipCode();
       $scope.formData[i].avatar = faker.internet.avatar();
     }
+
+
 
     $scope.$parent.modalActive = false;
     // send final formData to the main modal controller
@@ -181,9 +191,5 @@ angular.module('contactsApp').controller('ConfirmDeleteInstanceCtrl', function($
   };
 
 
-
-});
-
-angular.module('contactsApp').controller('ProgressModalInstanceCtrl', function($scope, $modalInstance) {
 
 });

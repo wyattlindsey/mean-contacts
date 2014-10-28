@@ -172,10 +172,7 @@ angular.module('contactsApp')
 
         $scope.creationMode = true;
         $scope.progressMax = data.length;
-        var progressModal = $modal.open({
-          templateUrl: './components/modal/progressModal.html',
-          scope: $scope
-        });
+
 
         var creationLoop = function() {
 
@@ -203,7 +200,7 @@ angular.module('contactsApp')
 
         creationLoop().then(function() {
           $scope.getContacts().then(function() {
-            progressModal.close();
+            $scope.$broadcast('closeProgressModal');
           });
           $scope.creationMode = false;
           $scope.selectedItems = [];
@@ -232,10 +229,6 @@ angular.module('contactsApp')
 
         $scope.deleteMode = true;
         $scope.progressMax = $scope.selectedItems.length;
-        var progressModal = $modal.open({
-          templateUrl: './components/modal/progressModal.html',
-          scope: $scope
-        });
 
         var deleteLoop = function() {
 
@@ -263,7 +256,7 @@ angular.module('contactsApp')
 
         deleteLoop().then(function() {
           $scope.getContacts().then(function() {
-            progressModal.close();
+            $scope.$broadcast('closeProgressModal');
           });
           $scope.deleteMode = false;
           $scope.selectedItems = [];

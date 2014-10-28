@@ -5,6 +5,10 @@ angular.module('contactsApp')
 
     $scope.contacts = [];
 
+    // for timing
+    $scope.start = 0.0;
+    $scope.end = 0.0;
+
     $scope.getContacts = function() {
       var deferred = $q.defer();
 
