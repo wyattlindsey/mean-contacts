@@ -3,6 +3,13 @@ public
 .tmp
 .sass-cache
 .idea
+.bowerrc
+.buildignore
+.editorconfig
+.gitattributes
+.gitignore
+.travis.yml
+.yo-rc.json
 client/bower_components
 dist
 /server/config/local.env.js
