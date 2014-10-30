@@ -18,6 +18,12 @@ block content
 								button.btn.btn-large.btn-warning(type='button',
 									ng-click='deleteAction()')
 									i.fa.fa-trash &nbsp;Delete Selected
+					div.row
+						div.select-all.pull-left
+							label.pull-right.select-all-label(ng-click='selectAllRows()') {{selectAllLabel}}
+							button.btn.btn-xs.btn-success.btn-select-all(type='button',
+								ng-click='selectAllRows()')
+								i.fa.fa-asterisk
 				div.contacts-grid
 					div.gridStyle(ui-grid='gridOptions', ui-grid-selection, ui-grid-edit)
 

@@ -10,6 +10,8 @@ angular.module('contactsApp')
       $scope.unselectingMulti = false;
       $scope.modalActive = false;
       $scope.alerts = [];
+      $scope.selectAllStatus = false;
+      $scope.selectAllLabel = 'Select all';
 
       $scope.addAlert = function(msg, type) {
         // don't repeatedly add the same alert message
@@ -96,6 +98,13 @@ angular.module('contactsApp')
             }
           });
 
+          $scope.$watch('selectedItems.length', function(value) {
+            if (value <= 1) {
+              $scope.selectAllLabel = 'Select all';
+              $scope.selectAllStatus = false;
+            }
+          });
+
 
       };
 
@@ -149,6 +158,25 @@ angular.module('contactsApp')
             }
           }
         ];
+
+      $scope.selectAllRows = function() {
+
+        if (!$scope.selectAllStatus) {
+          $scope.selectAllLabel = 'Unselect all';
+          $scope.gridApi.selection.setMultiSelect(true);
+          $scope.gridApi.selection.selectAllVisibleRows();
+          $scope.selectedItems = $scope.gridApi.selection.getSelectedRows();
+          $scope.singleSelectedItem = null;
+          $scope.gridApi.selection.setMultiSelect(false);
+          $scope.selectAllStatus = true;
+        } else {
+          $scope.selectAllLabel = 'Select all';
+          $scope.gridApi.selection.clearSelectedRows();
+          $scope.selectedItems.length = 0;
+          $scope.selectAllStatus = false;
+        }
+
+      };
 
       $scope.selectSingleRow = function(rowEntity) {
         if (!$scope.editInProgress) {

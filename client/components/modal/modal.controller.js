@@ -18,7 +18,6 @@ angular.module('contactsApp')
 
       creationModalInstance.result.then(function (data) {
         //result of clicking "Create"
-
         $scope.openProgressModal();
         $scope.createContactsBulk(data);
         $scope.$parent.modalActive = false;

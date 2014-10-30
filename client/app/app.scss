@@ -40,3 +40,7 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 .clear-floats {
   clear: both;
 }
+
+.btn:focus {
+  outline:none !important;
+}
