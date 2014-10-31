@@ -827,8 +827,3 @@
 {"name":"newrelic","hostname":"wyatt-mbp.wavecable.com","pid":2318,"component":"express","level":40,"msg":"Unrecognized version NaN of Express detected; not instrumenting","time":"2014-10-30T19:41:41.877Z","v":0}
 {"name":"newrelic","hostname":"wyatt-mbp.wavecable.com","pid":2318,"component":"new_relic_response","level":30,"msg":"Reporting to: https://rpm.newrelic.com/accounts/254790/applications/4042513","time":"2014-10-30T19:41:43.578Z","v":0}
 {"name":"newrelic","hostname":"wyatt-mbp.wavecable.com","pid":2318,"component":"collector_api","level":30,"msg":"Connected to collector-128.newrelic.com:443 with agent run ID 1633026898.","time":"2014-10-30T19:41:43.579Z","v":0}
-{"name":"newrelic","hostname":"wyatt-mbp.wavecable.com","pid":14883,"level":30,"msg":"Starting New Relic for Node.js connection process.","time":"2014-10-31T20:29:46.690Z","v":0}
-{"name":"newrelic","hostname":"wyatt-mbp.wavecable.com","pid":14883,"component":"express","level":40,"msg":"Unrecognized version NaN of Express detected; not instrumenting","time":"2014-10-31T20:29:47.117Z","v":0}
-{"name":"newrelic","hostname":"wyatt-mbp.wavecable.com","pid":14883,"component":"new_relic_response","level":30,"msg":"Reporting to: https://rpm.newrelic.com/accounts/254790/applications/4042513","time":"2014-10-31T20:29:48.412Z","v":0}
-{"name":"newrelic","hostname":"wyatt-mbp.wavecable.com","pid":14883,"component":"collector_api","level":30,"msg":"Connected to collector-128.newrelic.com:443 with agent run ID 1636298221.","time":"2014-10-31T20:29:48.413Z","v":0}
-{"name":"newrelic","hostname":"wyatt-mbp.wavecable.com","pid":14883,"level":40,"msg":"analytics event overflow, dropped 2 events; try increasing your limit above 10000","time":"2014-10-31T20:35:49.828Z","v":0}
