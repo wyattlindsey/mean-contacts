@@ -44,3 +44,11 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 .btn:focus {
   outline:none !important;
 }
+
+// remove animated vertical dropdown
+
+.modal.fade .modal-dialog, .modal.in .modal-dialog {
+  -webkit-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  transform: translate(0, 0);
+}
